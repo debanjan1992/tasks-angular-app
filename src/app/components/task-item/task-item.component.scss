@@ -23,6 +23,8 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 10px;
+        font-size: 0.9rem;
+        color: var(--text-primary-color);
 
         .icon-wrapper {
             i {
@@ -45,8 +47,9 @@
     .description-row {
         display: flex;
         align-items: center;
-        padding: 0 4.5rem 0 10px;
+        padding: 0 10px 0 10px;
         gap: 12px;
+        margin-top: 3px;
 
         small {
             color: var(--text-secondary-color);

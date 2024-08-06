@@ -15,7 +15,7 @@
                 [ngStyle]="{ 'visibility': (showActions || active) ? 'visible' : 'hidden'}"
                 (click)="showMenu($event, menu)"></i>
             <i class="pi pi-star" *ngIf="!task.starred && !task.completed" (click)="toggleStarred()"
-                [ngStyle]="{ 'display': (showActions && !active) ? 'block' : 'none'}"></i>
+                [ngStyle]="{ 'visibility': (showActions || active) ? 'visible' : 'hidden'}"></i>
             <i class="pi pi-star-fill" *ngIf="task.starred && !task.completed" (click)="toggleStarred()"></i>
             <i class="pi pi-trash" *ngIf="task.completed" (click)="deleteTask()"
                 [ngStyle]="{ 'visibility': (showActions || active) ? 'visible' : 'hidden'}"></i>

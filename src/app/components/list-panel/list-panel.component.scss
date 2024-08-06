@@ -2,9 +2,13 @@
     ::ng-deep {
 
         .p-card {
-            min-width: 20rem;
+            min-width: 25rem;
             max-width: 30rem;
             max-height: calc(100vh - 100px)
+        }
+
+        .p-card-body {
+            padding-top: 0;
         }
 
         .p-card-content {
@@ -99,7 +103,7 @@
 
 .task-list-wrapper {
     overflow-y: auto;
-    padding-right: 1rem;
+    padding-right: 0.5rem;
     max-height: calc(100vh - 225px);
 }
 
