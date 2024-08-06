@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TaskItemComponent } from "../task-item/task-item.component";
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { CreateEditTaskComponent } from "../create-edit-task/create-edit-task.component";
+import { animations } from './animations';
 
 @Component({
   selector: 'app-list-panel',
@@ -29,7 +30,8 @@ import { CreateEditTaskComponent } from "../create-edit-task/create-edit-task.co
     CreateEditTaskComponent,
   ],
   templateUrl: './list-panel.component.html',
-  styleUrl: './list-panel.component.scss'
+  styleUrl: './list-panel.component.scss',
+  animations: animations
 })
 export class ListPanelComponent {
   @Input() list!: List;
@@ -78,6 +80,10 @@ export class ListPanelComponent {
 
   onDelete() {
     this.store.dispatch(deleteList({ id: this.list.id }));
+  }
+
+  identify(_: number, task: Task) {
+    return task.id;
   }
 
 }

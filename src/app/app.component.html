@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (profileClicked)="aboutMeVisible = !aboutMeVisible"></app-header>
 <main>
     <div class="sidebar-wrapper" *ngIf="sidebarVisible">
         <app-sidepanel></app-sidepanel>
@@ -8,4 +8,8 @@
     </div>
 </main>
 
-<p-toast />
+<p-sidebar [(visible)]="aboutMeVisible" (onHide)="aboutMeVisible = false" position="right">
+    <app-about-me></app-about-me>
+</p-sidebar>
+
+<p-toast position="bottom-center" />

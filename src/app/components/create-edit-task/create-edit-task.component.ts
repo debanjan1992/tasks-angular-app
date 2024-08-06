@@ -35,7 +35,7 @@ export class CreateEditTaskComponent {
     }
 
     this.taskForm = this.fb.group({
-      title: this.fb.control(title, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      title: this.fb.control(title, [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
       description: this.fb.control(description, [Validators.minLength(10), Validators.maxLength(500)]),
     });
   }
@@ -69,6 +69,7 @@ export class CreateEditTaskComponent {
       title: this.taskForm.value.title,
       description: this.taskForm.value.description,
     };
-    this.store.dispatch(updateTask({ taskId: this.task?.id, task: newTask }))
+    this.store.dispatch(updateTask({ taskId: this.task?.id, task: newTask }));
+    this.dismiss.emit();
   }
 }

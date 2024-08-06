@@ -202,7 +202,7 @@ export class TasksService {
             modifiedAt: date,
         };
 
-        tasks.push(newTaskObject);
+        tasks.unshift(newTaskObject);
         this.writeTasksToLocalStorage(tasks);
 
         return of({ success: true, task: newTaskObject }).pipe(

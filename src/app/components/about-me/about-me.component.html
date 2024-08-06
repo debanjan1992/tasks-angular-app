@@ -1,0 +1,27 @@
+<div class="about-me">
+    <div class="wrapper">
+        <div class="header">
+            <div class="row">
+                <img src="./dp.jpg" />
+            </div>
+            <div class="row">
+                <div class="name">Debanjan Saha</div>
+                <div class="email">{{ 'debanjansaha1992@gmail.com' }}</div>
+                <div class="social-media">
+                    <p-button icon="pi pi-linkedin" [rounded]="true" [outlined]="true" small="true"
+                        (onClick)="gotoLinkedIn()" />
+                    <p-button icon="pi pi-instagram" [rounded]="true" [outlined]="true" small="true"
+                        (onClick)="gotoInstagram()" />
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="row">
+                <p class="cover">{{ cover}} </p>
+                <p-panel header="Skills">
+                    <p-tag *ngFor="let skill of skills" [value]="skill" styleClass="tag" />
+                </p-panel>
+            </div>
+        </div>
+    </div>
+</div>

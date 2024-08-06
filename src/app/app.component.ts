@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { SidebarModule } from 'primeng/sidebar';
+import { ToastModule } from 'primeng/toast';
+
 import { HeaderComponent } from './components/header/header.component';
 import { SidepanelComponent } from "./components/sidepanel/sidepanel.component";
-import { Store } from '@ngrx/store';
 import { ApplicationState } from './store/types';
 import { fetchLists, fetchSelectedLists, fetchTasks } from './store/tasks.actions';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
 import { AppService } from './services/app.service';
-import { CommonModule } from '@angular/common';
-import { trigger, transition, style, animate, state } from '@angular/animations';
+import { AboutMeComponent } from './components/about-me/about-me.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent, SidepanelComponent, ToastModule],
+  imports: [RouterOutlet, CommonModule, HeaderComponent, SidepanelComponent, ToastModule, SidebarModule, AboutMeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [MessageService],
+  providers: [],
   animations: [
     trigger(
       'slideAnimation',
@@ -37,9 +39,11 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 })
 export class AppComponent {
   sidebarVisible: boolean;
+  aboutMeVisible: boolean;
 
   constructor(private store: Store<ApplicationState>, private appService: AppService) {
     this.sidebarVisible = false;
+    this.aboutMeVisible = false;
   }
 
   ngOnInit() {

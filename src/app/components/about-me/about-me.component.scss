@@ -1,0 +1,48 @@
+.about-me {
+    .wrapper {
+        .header {
+            .row {
+                text-align: center;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 100%;
+                    border: 5px solid var(--surface-300);
+                }
+
+                .name {
+                    margin-top: 10px;
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                }
+
+                .email {
+                    margin-top: 3px;
+                }
+
+                .social-media {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-top: 10px;
+                }
+            }
+        }
+
+        .body {
+            margin-top: 24px;
+
+            .cover {
+                margin-bottom: 32px;
+            }
+
+            ::ng-deep {
+                .tag {
+                    margin: 2px 5px;
+                }
+            }
+        }
+    }
+}
