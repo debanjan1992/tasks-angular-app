@@ -1,0 +1,17 @@
+[
+    {
+        "id": "1",
+        "label": "Angular Topics",
+        "checked": "false"
+    },
+    {
+        "id": "2",
+        "label": "React Concepts",
+        "checked": "false"
+    },
+    {
+        "id": "1",
+        "label": "Shopping List",
+        "checked": "false"
+    }
+]

@@ -1,0 +1,67 @@
+.sidepanel {
+    padding: 60px 16px;
+}
+
+.header {}
+
+.content {
+    font-weight: 500;
+
+    i {
+        font-size: 1.275rem;
+    }
+
+    .action-list {
+        margin-top: 10px;
+    }
+
+    .menu-list,
+    .action-list,
+    .lists-content {
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 3px;
+            padding: 7px 16px;
+            cursor: pointer;
+            transition: 0.4;
+            border-radius: var(--border-radius);
+
+            &:hover {
+                background-color: var(--surface-200);
+            }
+
+            &.active {
+                background-color: var(--highlight-bg);
+                color: var(--highlight-text-color);
+                font-weight: 600;
+            }
+        }
+    }
+
+    .lists {
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 7px 16px;
+        }
+    }
+
+    .checkbox-wrapper {
+        .p-element {
+            width: 12rem;
+        }
+
+        ::ng-deep {
+            .p-checkbox-label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 5px;
+            }
+        }
+    }
+}

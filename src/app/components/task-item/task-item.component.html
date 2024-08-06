@@ -1,0 +1,41 @@
+<div class="task-item" #taskItem (click)="active = !active" [ngClass]="{ 'active': active, 'completed': task.completed}"
+    (mouseover)="showActions=true" (mouseleave)="showActions=false" (clickedOutside)="active = false">
+    <div class="row">
+        <div class="title-wrapper">
+            <div class="icon-wrapper fixed-width">
+                <i class="pi" [ngClass]="{ 
+                    'pi-circle': !task.completed,
+                    'pi-check': task.completed,
+             }" (click)="toggleCompleted()"></i>
+            </div>
+            <span class="task-title">{{ task.title }}</span>
+        </div>
+        <div class="actions">
+            <i class="pi pi-ellipsis-v" *ngIf="!task.completed"
+                [ngStyle]="{ 'visibility': (showActions || active) ? 'visible' : 'hidden'}"
+                (click)="showMenu($event, menu)"></i>
+            <i class="pi pi-star" *ngIf="!task.starred && !task.completed" (click)="toggleStarred()"
+                [ngStyle]="{ 'display': (showActions && !active) ? 'block' : 'none'}"></i>
+            <i class="pi pi-star-fill" *ngIf="task.starred && !task.completed" (click)="toggleStarred()"></i>
+            <i class="pi pi-trash" *ngIf="task.completed" (click)="deleteTask()"
+                [ngStyle]="{ 'visibility': (showActions || active) ? 'visible' : 'hidden'}"></i>
+        </div>
+    </div>
+    <div class="description-row">
+        <small class="task-description" [ngStyle]="{
+            '-webkit-line-clamp': active ? 'unset' : 2
+        }">{{ task.description }}</small>
+    </div>
+</div>
+
+<p-menu #menu [model]="menuItems" [popup]="true" />
+
+<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true" [style]="{ width: '20rem'}">
+    <ng-container [ngTemplateOutlet]="newTaskEl"></ng-container>
+</p-overlayPanel>
+
+<ng-template #newTaskEl>
+    <app-create-edit-task [list]="list" [task]="task" variant="edit-task" (dismiss)="op.hide()"></app-create-edit-task>
+</ng-template>
+
+<p-contextMenu [target]="taskItem" [model]="contextMenuItems" />

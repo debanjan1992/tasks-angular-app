@@ -1,0 +1,16 @@
+<nav>
+    <div class="wrapper">
+        <section>
+            <p-button icon="pi pi-bars" [text]="true" [rounded]="true" (click)="onSidebarToggle()"></p-button>
+            <img src="./calendar_2_2x.png" width="40" height="40" />
+            <h2>Tasks</h2>
+        </section>
+        <section>
+            <div class="profile-wrapper" (click)="profileClicked.emit()">
+                <p-avatar label="DS" styleClass="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
+                    shape="circle" />
+                <span>Debanjan Saha</span>
+            </div>
+        </section>
+    </div>
+</nav>

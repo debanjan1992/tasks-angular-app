@@ -1,0 +1,128 @@
+:host {
+    display: inline-block;
+    min-width: 23rem;
+    min-height: 5rem;
+    overflow: hidden;
+    margin: 10px 5px;
+    transition: box-shadow 0.4s ease-out;
+
+    ::ng-deep {
+
+        .p-card-body {
+            padding: 0 8px 16px 8px;
+        }
+
+        .p-card-content {
+            padding: 0;
+        }
+    }
+
+    &:hover {
+        box-shadow: 0.2px 1px 6px var(--surface-400);
+    }
+}
+
+
+.header {
+    padding: 16px 14px 10px 14px;
+    margin-bottom: 8px;
+    font-size: 1.275rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    i {
+        padding: 10px;
+        border-radius: 100%;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--surface-50);
+        }
+    }
+}
+
+.content {
+    .add-task {
+        display: inline-flex;
+        align-items: center;
+        width: 12rem;
+        font-size: 0.9rem;
+        color: var(--primary-color);
+        gap: 10px;
+        font-weight: 500;
+        padding: 5px 7px;
+        transition: 0.4s;
+        border-radius: var(--border-radius);
+        margin-bottom: 10px;
+        cursor: pointer;
+
+        i {
+            font-size: 1.275rem;
+        }
+
+        &:hover {
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text-color);
+        }
+
+        &:active {
+            background-color: var(--primary-color);
+            color: var(--primary-color-text);
+        }
+    }
+
+    .task-list {
+        margin-bottom: 24px;
+
+        .title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            margin-left: 3px;
+            font-weight: 500;
+            cursor: pointer;
+
+            i {
+                padding: 10px;
+                border-radius: 100%;
+                font-weight: 600;
+                font-size: 1rem;
+
+                &:hover {
+                    background-color: var(--surface-50);
+                }
+            }
+        }
+    }
+}
+
+.empty-tasks,
+.all-tasks-completed {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        width: 8rem;
+        margin-bottom: 18px;
+    }
+
+    .text-primary {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+        font-weight: 500;
+    }
+
+    .text-secondary {
+        font-size: 0.925rem;
+        width: 15rem;
+        text-align: center;
+    }
+}

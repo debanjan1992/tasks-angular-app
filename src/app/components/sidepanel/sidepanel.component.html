@@ -1,0 +1,37 @@
+<div class="sidepanel">
+    <div class="header">
+    </div>
+    <div class="content">
+        <ul class="menu-list">
+            <li class="row" routerLink="/tasks" routerLinkActive="active">
+                <i class="pi pi-check-circle"></i>
+                <span>All tasks</span>
+            </li>
+            <li class="row" routerLink="/starred" routerLinkActive="active">
+                <i class="pi pi-star"></i>
+                <span>Starred</span>
+            </li>
+        </ul>
+        <div class="lists">
+            <div class="header">
+                <div class="title">Lists</div>
+                <p-button [icon]="listsExpanded ? 'pi pi-angle-up' : 'pi pi-angle-down'" [text]="true" [rounded]="true"
+                    size="small" (onClick)="listsExpanded = !listsExpanded"></p-button>
+            </div>
+            <div class="lists-content" *ngIf="listsExpanded">
+                <div class="checkbox-wrapper row" *ngFor="let list of lists">
+                    <p-checkbox [label]="list.label" name="lists-group" [value]="list.id" [(ngModel)]="selectedLists" (onChange)="onCheckboxToggle($event)"></p-checkbox>
+                </div>
+            </div>
+        </div>
+        <ul class="action-list">
+            <li class="row" (click)="newListModalVisible = true">
+                <i class="pi pi-plus"></i>
+                <span>Create new list</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<app-create-edit-list-modal [visible]="newListModalVisible"
+    (dismiss)="newListModalVisible = false"></app-create-edit-list-modal>

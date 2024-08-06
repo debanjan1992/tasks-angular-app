@@ -1,0 +1,11 @@
+<p-dialog [header]="editMode ? 'Rename list' : 'Create new list'" [modal]="true" [(visible)]="visible"
+    [closable]="false" [closeOnEscape]="true" [draggable]="false" [style]="{ width: '25rem' }">
+    <div class="content">
+        <input pInputText autocomplete="off" [(ngModel)]="listName" />
+    </div>
+    <div class="actions">
+        <p-button label="Cancel" severity="secondary" (onClick)="dismiss.emit()" [text]="true" [outlined]="true" />
+        <p-button [disabled]="!listName || listName.length <= 5" label="Done" (onClick)="onDoneClick()" [text]="true"
+            [outlined]="true" />
+    </div>
+</p-dialog>

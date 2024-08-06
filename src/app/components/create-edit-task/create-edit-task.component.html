@@ -1,0 +1,66 @@
+<div class="create-edit-task">
+    <ng-container *ngIf="variant === 'new-task' || variant == 'new-starred-task'" [ngTemplateOutlet]="newTaskEl"></ng-container>
+    <ng-container *ngIf="variant === 'edit-task'" [ngTemplateOutlet]="editTaskEl"></ng-container>
+</div>
+
+<ng-template #newTaskEl>
+    <form [formGroup]="taskForm" (submit)="onSave()">
+        <div class="header">New task</div>
+        <div class="input-group">
+            <input pInputText id="title" placeholder="Title" formControlName="title" />
+            <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['required']">
+                This field is required
+            </div>
+            <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['maxlength']">
+                This length of this input should not exceed 20 characters
+            </div>
+            <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['minlength']">
+                This minimum length of this input is 5 characters
+            </div>
+        </div>
+        <div class="input-group">
+            <textarea pInputTextarea id="description" rows="4" placeholder="Description"
+                formControlName="description"></textarea>
+            <div class="validation-error"
+                *ngIf="(description?.touched || description?.dirty) && description?.errors?.['maxlength']">
+                This length of this input should not exceed 500 characters
+            </div>
+        </div>
+
+        <div class="actions">
+            <p-button label="Save" size="small" [rounded]="true" type="submit"
+                [disabled]="taskForm.invalid"></p-button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #editTaskEl>
+    <form [formGroup]="taskForm" (submit)="onUpdate()">
+        <div class="header">Edit task</div>
+        <div class="input-group">
+            <input pInputText id="title" placeholder="Title" formControlName="title" />
+            <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['required']">
+                This field is required
+            </div>
+            <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['maxlength']">
+                This length of this input should not exceed 20 characters
+            </div>
+            <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['minlength']">
+                This minimum length of this input is 5 characters
+            </div>
+        </div>
+        <div class="input-group">
+            <textarea pInputTextarea id="description" rows="4" placeholder="Description"
+                formControlName="description"></textarea>
+            <div class="validation-error"
+                *ngIf="(description?.touched || description?.dirty) && description?.errors?.['maxlength']">
+                This length of this input should not exceed 500 characters
+            </div>
+        </div>
+
+        <div class="actions">
+            <p-button label="Update" size="small" [rounded]="true" type="submit"
+                [disabled]="taskForm.invalid"></p-button>
+        </div>
+    </form>
+</ng-template>
