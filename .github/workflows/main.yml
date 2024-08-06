@@ -1,0 +1,43 @@
+name: Build and deploy to Github pages
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+  
+permissions:
+  id-token: write
+
+jobs:
+  
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Configure Git
+      run: |
+          git config --global user.email "debanjansaha1992@gmail.com"
+          git config --global user.name "Debanjan Saha"
+
+    - name: Adding Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 20
+
+    - name: Build
+      run: |
+        npm install
+        npm run build
+
+    - name: Deploy to github pages
+      uses: crazy-max/ghaction-github-pages@v4.0.0
+      with:
+        target_branch: gh-pages
+        build_dir: "build/browser"
+      env:
+        CI: true
+        GH_PAT: ${{ secrets.GH_PAT }}
