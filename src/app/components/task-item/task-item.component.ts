@@ -69,8 +69,8 @@ export class TaskItemComponent {
 
   showMenu(event: Event, menu: Menu) {
     menu.show(event);
-    event.preventDefault();
-    event.stopPropagation();
+    // event.preventDefault();
+    // event.stopPropagation();
   }
 
   deleteTask() {

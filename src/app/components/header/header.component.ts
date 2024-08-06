@@ -20,7 +20,6 @@ import { fetchLists, fetchSelectedLists, fetchTasks } from '../../store/tasks.ac
 export class HeaderComponent {
   @Output() profileClicked = new EventEmitter<void>();
   today!: Date;
-
   date!: Date;
   newTaskVisible = false;
 

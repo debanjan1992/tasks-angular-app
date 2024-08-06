@@ -5,43 +5,43 @@
             <i *ngIf="variant !== 'starred'" class="pi pi-ellipsis-v" (click)="menu.toggle($event)"></i>
         </div>
     </ng-template>
-    <div class="content">
-        <div class="add-task" (click)="op.toggle($event)">
-            <i class="pi pi-plus-circle"></i>
-            <span *ngIf="variant === 'default'">Add a task</span>
-            <span *ngIf="variant === 'starred'">Add a starred task</span>
-        </div>
-        @if (variant === 'starred') {
+    <div class="add-task" (click)="op.toggle($event)">
+        <i class="pi pi-plus-circle"></i>
+        <span *ngIf="variant === 'default'">Add a task</span>
+        <span *ngIf="variant === 'starred'">Add a starred task</span>
+    </div>
+    @if (variant === 'starred') {
+    <div class="task-list-wrapper">
         <div class="task-list starred">
             <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noStarredTasks"></ng-container>
             <app-task-item *ngFor="let task of tasks" [task]="task" [list]="list"></app-task-item>
         </div>
-        } @else {
-        <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noTasks"></ng-container>
+    </div>
+    } @else {
+    <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noTasks"></ng-container>
+    <div class="task-list-wrapper">
+        <div class="task-list incomplete" *ngIf="incompleteTasks.length !== 0">
+            <app-task-item *ngFor="let task of incompleteTasks" [task]="task" [list]="list"></app-task-item>
+        </div>
         <ng-container *ngIf="tasks.length === completeTasks.length && tasks.length !== 0"
             [ngTemplateOutlet]="allTasksCompleted"></ng-container>
-        <div class="task-list-wrapper">
-            <div class="task-list incomplete">
-                <app-task-item *ngFor="let task of incompleteTasks" [task]="task" [list]="list"></app-task-item>
+        <div class="task-list complete" *ngIf="completeTasks.length !== 0">
+            <div class="title" (click)="completedTasksExpanded = !completedTasksExpanded;">
+                <span class="expand-collapse">
+                    <i class="pi pi-angle-right" *ngIf="!completedTasksExpanded"></i>
+                    <i class="pi pi-angle-down" *ngIf="completedTasksExpanded"></i>
+                </span>
+                <span>Completed</span>
             </div>
-            <div class="task-list complete" *ngIf="completeTasks.length !== 0">
-                <div class="title" (click)="completedTasksExpanded = !completedTasksExpanded;">
-                    <span class="expand-collapse">
-                        <i class="pi pi-angle-right" *ngIf="!completedTasksExpanded"></i>
-                        <i class="pi pi-angle-down" *ngIf="completedTasksExpanded"></i>
-                    </span>
-                    <span>Completed</span>
-                </div>
-                <ng-container *ngIf="completedTasksExpanded">
-                    <app-task-item *ngFor="let task of completeTasks" [task]="task" [list]="list"></app-task-item>
-                </ng-container>
-            </div>
+            <ng-container *ngIf="completedTasksExpanded" class="completed-tasks-list-wrapper">
+                <app-task-item *ngFor="let task of completeTasks" [task]="task" [list]="list"></app-task-item>
+            </ng-container>
         </div>
-        }
     </div>
+    }
 </p-card>
 
-<p-menu #menu [model]="menuItems" [popup]="true" />
+<p-menu #menu [model]="menuItems" [popup]="true" appendTo="body" />
 
 <app-create-edit-list-modal [visible]="editModalVisible" [editMode]="true" [list]="list"
     (dismiss)="editModalVisible = false"></app-create-edit-list-modal>

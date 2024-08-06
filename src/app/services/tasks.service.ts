@@ -175,18 +175,18 @@ export class TasksService {
 
     fetchAllTasks(): Observable<{ tasks: Task[] }> {
         const data = this.getTasksFromLocalStorage();
-        data.sort((a, b) => {
-            const aDate = new Date(a.modifiedAt);
-            const bDate = new Date(b.modifiedAt);
+        // data.sort((a, b) => {
+        //     const aDate = new Date(a.modifiedAt);
+        //     const bDate = new Date(b.modifiedAt);
 
-            if (aDate < bDate) {
-                return -1;
-            } else if (aDate > bDate) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
+        //     if (aDate < bDate) {
+        //         return -1;
+        //     } else if (aDate > bDate) {
+        //         return 1;
+        //     } else {
+        //         return 0;
+        //     }
+        // });
         return of({ tasks: data });
     }
 

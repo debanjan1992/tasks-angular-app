@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ApplicationState, List, Task } from '../../store/types';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
@@ -40,7 +40,7 @@ export class ListPanelComponent {
   tasks: Task[];
   completedTasksExpanded = false;
 
-  constructor(private store: Store<ApplicationState>) {
+  constructor(private store: Store<ApplicationState>, private elementRef: ElementRef) {
     this.tasks = [];
     this.menuItems = [];
   }

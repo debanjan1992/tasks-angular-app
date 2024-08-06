@@ -10,7 +10,8 @@ export class AppService {
   constructor() { }
 
   toggleSidebar() {
-    this.sidebarExpandSubject.next(!this.isSidebarExpanded());
+    const value = !this.isSidebarExpanded();
+    this.sidebarExpandSubject.next(value);
   }
 
   listenForSidebarChanges() {

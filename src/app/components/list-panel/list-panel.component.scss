@@ -1,16 +1,10 @@
 :host {
-    display: inline-block;
-    min-width: 23rem;
-    max-width: 30rem;
-    min-height: 5rem;
-    overflow: hidden;
-    margin: 10px 5px;
-    transition: box-shadow 0.4s ease-out;
-
     ::ng-deep {
 
-        .p-card-body {
-            padding: 0 8px 16px 8px;
+        .p-card {
+            min-width: 20rem;
+            max-width: 30rem;
+            max-height: calc(100vh - 100px)
         }
 
         .p-card-content {
@@ -46,65 +40,67 @@
     }
 }
 
-.content {
-    .add-task {
-        display: inline-flex;
+.add-task {
+    display: inline-flex;
+    align-items: center;
+    width: 12rem;
+    height: 30px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    gap: 10px;
+    font-weight: 500;
+    padding: 5px 7px;
+    transition: 0.4s;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+
+    i {
+        font-size: 1.275rem;
+    }
+
+    &:hover {
+        background-color: var(--highlight-bg);
+        color: var(--highlight-text-color);
+    }
+
+    &:active {
+        background-color: var(--primary-color);
+        color: var(--primary-color-text);
+    }
+}
+
+.task-list {
+    margin-bottom: 0px;
+
+    .title {
+        display: flex;
         align-items: center;
-        width: 12rem;
-        font-size: 0.9rem;
-        color: var(--primary-color);
-        gap: 10px;
+        gap: 8px;
+        margin-left: 3px;
         font-weight: 500;
-        padding: 5px 7px;
-        transition: 0.4s;
-        border-radius: var(--border-radius);
-        margin-bottom: 10px;
         cursor: pointer;
 
         i {
-            font-size: 1.275rem;
-        }
+            padding: 10px;
+            border-radius: 100%;
+            font-weight: 600;
+            font-size: 1rem;
 
-        &:hover {
-            background-color: var(--highlight-bg);
-            color: var(--highlight-text-color);
-        }
-
-        &:active {
-            background-color: var(--primary-color);
-            color: var(--primary-color-text);
-        }
-    }
-
-    .task-list {
-        margin-bottom: 24px;
-
-        .title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-            margin-left: 3px;
-            font-weight: 500;
-            cursor: pointer;
-
-            i {
-                padding: 10px;
-                border-radius: 100%;
-                font-weight: 600;
-                font-size: 1rem;
-
-                &:hover {
-                    background-color: var(--surface-50);
-                }
+            &:hover {
+                background-color: var(--surface-50);
             }
         }
     }
 
-    .task-list-wrapper {
-        overflow: auto;
-        max-height: 72vh;
+    .completed-tasks-list-wrapper {
+        margin-top: 12px;
     }
+}
+
+.task-list-wrapper {
+    overflow-y: auto;
+    padding-right: 1rem;
+    max-height: calc(100vh - 225px);
 }
 
 .empty-tasks,

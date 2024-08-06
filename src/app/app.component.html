@@ -1,6 +1,8 @@
 <app-header></app-header>
 <main>
-    <app-sidepanel></app-sidepanel>
+    <div class="sidebar-wrapper" *ngIf="sidebarVisible">
+        <app-sidepanel></app-sidepanel>
+    </div>
     <div class="content">
         <router-outlet />
     </div>

@@ -20,7 +20,6 @@ import { updateSelectedLists } from '../../store/tasks.actions';
   styleUrl: './sidepanel.component.scss'
 })
 export class SidepanelComponent {
-  visible = false;
   appService = inject(AppService);
   listsExpanded = true;
   lists: List[];
@@ -37,9 +36,6 @@ export class SidepanelComponent {
   }
 
   ngOnInit() {
-    this.appService.listenForSidebarChanges().subscribe(expanded => {
-      this.visible = expanded;
-    });
   }
 
   onDismiss() {

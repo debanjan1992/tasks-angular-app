@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<p-menu #menu [model]="menuItems" [popup]="true" />
+<p-menu #menu [model]="menuItems" [popup]="true" appendTo="body" />
 
 <p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true" [style]="{ width: '20rem'}">
     <ng-container [ngTemplateOutlet]="newTaskEl"></ng-container>
