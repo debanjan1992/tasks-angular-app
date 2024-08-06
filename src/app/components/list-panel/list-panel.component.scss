@@ -1,6 +1,7 @@
 :host {
     display: inline-block;
     min-width: 23rem;
+    max-width: 30rem;
     min-height: 5rem;
     overflow: hidden;
     margin: 10px 5px;
@@ -98,6 +99,11 @@
                 }
             }
         }
+    }
+
+    .task-list-wrapper {
+        overflow: auto;
+        max-height: 72vh;
     }
 }
 

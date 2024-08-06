@@ -20,20 +20,22 @@
         <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noTasks"></ng-container>
         <ng-container *ngIf="tasks.length === completeTasks.length && tasks.length !== 0"
             [ngTemplateOutlet]="allTasksCompleted"></ng-container>
-        <div class="task-list incomplete">
-            <app-task-item *ngFor="let task of incompleteTasks" [task]="task" [list]="list"></app-task-item>
-        </div>
-        <div class="task-list complete" *ngIf="completeTasks.length !== 0">
-            <div class="title" (click)="completedTasksExpanded = !completedTasksExpanded;">
-                <span class="expand-collapse">
-                    <i class="pi pi-angle-right" *ngIf="!completedTasksExpanded"></i>
-                    <i class="pi pi-angle-down" *ngIf="completedTasksExpanded"></i>
-                </span>
-                <span>Completed</span>
+        <div class="task-list-wrapper">
+            <div class="task-list incomplete">
+                <app-task-item *ngFor="let task of incompleteTasks" [task]="task" [list]="list"></app-task-item>
             </div>
-            <ng-container *ngIf="completedTasksExpanded">
-                <app-task-item *ngFor="let task of completeTasks" [task]="task" [list]="list"></app-task-item>
-            </ng-container>
+            <div class="task-list complete" *ngIf="completeTasks.length !== 0">
+                <div class="title" (click)="completedTasksExpanded = !completedTasksExpanded;">
+                    <span class="expand-collapse">
+                        <i class="pi pi-angle-right" *ngIf="!completedTasksExpanded"></i>
+                        <i class="pi pi-angle-down" *ngIf="completedTasksExpanded"></i>
+                    </span>
+                    <span>Completed</span>
+                </div>
+                <ng-container *ngIf="completedTasksExpanded">
+                    <app-task-item *ngFor="let task of completeTasks" [task]="task" [list]="list"></app-task-item>
+                </ng-container>
+            </div>
         </div>
         }
     </div>

@@ -5,7 +5,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-size: 14px;
@@ -14,7 +15,8 @@ html, body {
     height: 100%;
 }
 
-ul, li {
+ul,
+li {
     margin: 0;
     padding: 0;
 }
@@ -27,3 +29,17 @@ ul {
     color: red;
     font-size: 0.75rem;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--surface-200);
+    border-radius: 20px;
+  }

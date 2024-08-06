@@ -63,13 +63,16 @@ export class ListPanelComponent {
     });
 
     if (this.variant === 'default') {
-      this.menuItems = [{
-        label: "Rename list",
-        command: () => this.editModalVisible = true,
-      }, {
-        label: "Delete list",
-        command: () => this.onDelete()
-      }];
+      this.menuItems = [
+        {
+          label: "Rename list",
+          command: () => this.editModalVisible = true,
+        }, 
+        {
+          label: "Delete list",
+          command: () => this.onDelete()
+        }
+      ];
     }
   }
 

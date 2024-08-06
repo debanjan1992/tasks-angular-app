@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { List, NewTask, Task, UpdateTaskPayload } from "../store/types";
 import { Observable, of, tap, throwError } from "rxjs";
 import * as uuid from "uuid";
+import { da, faker } from '@faker-js/faker';
 import { MessageService } from "primeng/api";
 
 @Injectable({ providedIn: "root" })
@@ -23,6 +24,45 @@ export class TasksService {
         if (!localStorage.getItem(this.Keys.Tasks)) {
             localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
         }
+    }
+
+    generateMocks() {
+        const listsCount = 8;
+        const tasksCount = 100;
+        const selectedListsCount = 4;
+        const lists: List[] = [];
+        const tasks: Task[] = [];
+        const selectedLists: string[] = [];
+
+        const date = new Date().toUTCString();
+
+        for (let i = 1; i <= listsCount; i++) {
+            lists.push({
+                id: uuid.v4(),
+                label: faker.location.country(),
+            });
+        }
+
+        selectedLists.push(...lists.slice(0, selectedListsCount - 1).map(x => x.id));
+
+        for (let i = 1; i <= tasksCount; i++) {
+            const randomIndex = Math.floor(Math.random() * listsCount);
+            const completed = Math.random() > 0.5;
+            tasks.push({
+                id: uuid.v4(),
+                title: faker.music.songName(),
+                description: faker.commerce.productDescription(),
+                completed,
+                starred: completed ? false : Math.random() > 0.7,
+                createdAt: date,
+                modifiedAt: date,
+                listId: lists[randomIndex].id,
+            });
+        }
+
+        this.writeSelectedListsToLocalStorage(selectedLists);
+        this.writeListsToLocalStorage(lists);
+        this.writeTasksToLocalStorage(tasks);
     }
 
     private getListsFromLocalStorage(): List[] {
@@ -135,6 +175,18 @@ export class TasksService {
 
     fetchAllTasks(): Observable<{ tasks: Task[] }> {
         const data = this.getTasksFromLocalStorage();
+        data.sort((a, b) => {
+            const aDate = new Date(a.modifiedAt);
+            const bDate = new Date(b.modifiedAt);
+
+            if (aDate < bDate) {
+                return -1;
+            } else if (aDate > bDate) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
         return of({ tasks: data });
     }
 
