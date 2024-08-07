@@ -15,14 +15,12 @@ export class TasksService {
     };
 
     constructor(private messageService: MessageService) {
-        if (!localStorage.getItem(this.Keys.Lists)) {
+        if (!localStorage.getItem(this.Keys.Lists) && !localStorage.getItem(this.Keys.Tasks) && !localStorage.getItem(this.Keys.SelectedLists)) {
             localStorage.setItem(this.Keys.Lists, JSON.stringify([]));
-        }
-        if (!localStorage.getItem(this.Keys.SelectedLists)) {
             localStorage.setItem(this.Keys.SelectedLists, JSON.stringify([]));
-        }
-        if (!localStorage.getItem(this.Keys.Tasks)) {
             localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
+
+            this.generateMocks();
         }
     }
 

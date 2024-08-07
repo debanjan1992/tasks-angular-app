@@ -2,8 +2,6 @@
     padding: 60px 16px;
 }
 
-.header {}
-
 .content {
     font-weight: 500;
 
@@ -46,7 +44,31 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 7px 16px;
+            padding: 7px 0 7px 20px;    
+
+            i {
+                padding: 10px;
+                border-radius: 100%;
+                font-weight: 600;
+                font-size: 1rem;
+                cursor: pointer;
+        
+                &:hover {
+                    background-color: var(--surface-50);
+                }
+            }
+        }
+
+        .lists-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s;
+            margin-right: 28px;
+
+            &.expanded {
+                max-height: 45vh;
+                overflow-y: auto;
+            }
         }
     }
 
@@ -58,6 +80,7 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 padding: 5px;
+                max-width: 12rem;
             }
         }
     }
