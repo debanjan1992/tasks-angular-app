@@ -22,20 +22,19 @@
         </div>
     </div>
     <div class="description-row">
-        <small class="task-description" [ngStyle]="{
+        <small class="task-description" *ngIf="task.description" [ngStyle]="{
             '-webkit-line-clamp': active ? 'unset' : 2
         }">{{ task.description }}</small>
+    </div>
+    <div class="due-date-row" *ngIf="task.dueDate">
+        <p-tag [severity]="getSeverity()" [value]="getDue()" [rounded]="true" />
     </div>
 </div>
 
 <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body" />
 
-<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true" [style]="{ width: '20rem'}">
-    <ng-container [ngTemplateOutlet]="newTaskEl"></ng-container>
-</p-overlayPanel>
-
-<ng-template #newTaskEl>
+<p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" [style]="{ width: '20rem'}">
     <app-create-edit-task [list]="list" [task]="task" variant="edit-task" (dismiss)="op.hide()"></app-create-edit-task>
-</ng-template>
+</p-overlayPanel>
 
 <p-contextMenu [target]="taskItem" [model]="contextMenuItems" />

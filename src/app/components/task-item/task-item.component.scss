@@ -5,17 +5,20 @@
     cursor: pointer;
 
     &.completed {
-        .task-title, .task-description {
+
+        .task-title,
+        .task-description {
             text-decoration: line-through;
         }
     }
 
     &.active {
-        background-color: var(--surface-200);
+        background-color: var(--highlight-bg);
+        color: var(--highlight-text-color);
     }
 
     &:hover:not(.active) {
-        background-color: var(--surface-50);
+        background-color: var(--surface-100);
     }
 
     .row {
@@ -49,7 +52,6 @@
         align-items: center;
         padding: 0 10px 0 10px;
         gap: 12px;
-        margin-top: 3px;
 
         small {
             color: var(--text-secondary-color);
@@ -59,6 +61,11 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+    }
+
+    .due-date-row {
+        margin-top: 10px;
+        margin-left: 32px;
     }
 
     .title-wrapper {

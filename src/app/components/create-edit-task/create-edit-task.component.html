@@ -1,5 +1,6 @@
 <div class="create-edit-task">
-    <ng-container *ngIf="variant === 'new-task' || variant == 'new-starred-task'" [ngTemplateOutlet]="newTaskEl"></ng-container>
+    <ng-container *ngIf="variant === 'new-task' || variant == 'new-starred-task'"
+        [ngTemplateOutlet]="newTaskEl"></ng-container>
     <ng-container *ngIf="variant === 'edit-task'" [ngTemplateOutlet]="editTaskEl"></ng-container>
 </div>
 
@@ -18,6 +19,7 @@
                 This minimum length of this input is 5 characters
             </div>
         </div>
+
         <div class="input-group">
             <textarea pInputTextarea id="description" rows="4" placeholder="Description"
                 formControlName="description"></textarea>
@@ -27,9 +29,19 @@
             </div>
         </div>
 
+        <div class="input-group date-time-picker">
+            <i class="pi pi-calendar-clock"></i>
+            <div (click)="showDueDateDialog()">
+                <span *ngIf="!dueDate?.value">Select Due Date</span>
+                <div class="due-date-display" *ngIf="dueDate?.value">
+                    <div>Due date</div>
+                    <div>{{ dueDate?.value| date: 'MMM d, y, h:mm a' }}</div>
+                </div>
+            </div>
+        </div>
+
         <div class="actions">
-            <p-button label="Save" size="small" [rounded]="true" type="submit"
-                [disabled]="taskForm.invalid"></p-button>
+            <p-button label="Save" size="small" [rounded]="true" type="submit" [disabled]="taskForm.invalid"></p-button>
         </div>
     </form>
 </ng-template>
@@ -55,6 +67,17 @@
             <div class="validation-error"
                 *ngIf="(description?.touched || description?.dirty) && description?.errors?.['maxlength']">
                 This length of this input should not exceed 500 characters
+            </div>
+        </div>
+
+        <div class="input-group date-time-picker">
+            <i class="pi pi-calendar-clock"></i>
+            <div (click)="showDueDateDialog()">
+                <span *ngIf="!dueDate?.value">Select Due Date</span>
+                <div class="due-date-display" *ngIf="dueDate?.value">
+                    <div>Due date</div>
+                    <div>{{ dueDate?.value| date:'medium' }}</div>
+                </div>
             </div>
         </div>
 

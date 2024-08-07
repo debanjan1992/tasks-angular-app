@@ -1,0 +1,12 @@
+<div class="due-date">
+    <div class="content">
+        <div class="date-time-wrapper">
+            <p-calendar [inline]="true" [(ngModel)]="date" [showTime]="true" [hourFormat]="'12'" />
+        </div>
+    </div>
+    <div class="footer">
+        <p-button icon="pi pi-trash" [text]="true" severity="danger" (click)="onDelete()"></p-button>
+        <p-button label="Cancel" [text]="true" severity="secondary" (click)="onDismiss()"></p-button>
+        <p-button label="Ok" [text]="true" (click)="onSubmit()"></p-button>
+    </div>
+</div>

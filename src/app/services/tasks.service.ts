@@ -4,6 +4,8 @@ import { Observable, of, tap, throwError } from "rxjs";
 import * as uuid from "uuid";
 import { da, faker } from '@faker-js/faker';
 import { MessageService } from "primeng/api";
+import { randomDate } from "./utils";
+import { addDays } from "date-fns";
 
 @Injectable({ providedIn: "root" })
 export class TasksService {
@@ -20,7 +22,7 @@ export class TasksService {
             localStorage.setItem(this.Keys.SelectedLists, JSON.stringify([]));
             localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
 
-            this.generateMocks();
+            // this.generateMocks();
         }
     }
 
@@ -46,15 +48,17 @@ export class TasksService {
         for (let i = 1; i <= tasksCount; i++) {
             const randomIndex = Math.floor(Math.random() * listsCount);
             const completed = Math.random() > 0.5;
+            const dueDate = Math.random() > 0.6 ? randomDate(addDays(date, -5), addDays(date, 5)).toUTCString() : null;
             tasks.push({
                 id: uuid.v4(),
                 title: faker.music.songName(),
-                description: faker.commerce.productDescription(),
+                description: Math.random() > 0.5 ? faker.commerce.productDescription() : '',
                 completed,
                 starred: completed ? false : Math.random() > 0.7,
                 createdAt: date,
                 modifiedAt: date,
                 listId: lists[randomIndex].id,
+                dueDate,
             });
         }
 
@@ -176,18 +180,6 @@ export class TasksService {
 
     fetchAllTasks(): Observable<{ tasks: Task[] }> {
         const data = this.getTasksFromLocalStorage();
-        // data.sort((a, b) => {
-        //     const aDate = new Date(a.modifiedAt);
-        //     const bDate = new Date(b.modifiedAt);
-
-        //     if (aDate < bDate) {
-        //         return -1;
-        //     } else if (aDate > bDate) {
-        //         return 1;
-        //     } else {
-        //         return 0;
-        //     }
-        // });
         return of({ tasks: data });
     }
 
