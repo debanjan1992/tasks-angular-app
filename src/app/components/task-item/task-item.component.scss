@@ -5,7 +5,9 @@
     cursor: pointer;
 
     &.completed {
-        .task-title, .task-description {
+
+        .task-title,
+        .task-description {
             text-decoration: line-through;
         }
     }
@@ -59,6 +61,11 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+    }
+
+    .due-date-row {
+        margin-top: 10px;
+        margin-left: 36px;
     }
 
     .title-wrapper {

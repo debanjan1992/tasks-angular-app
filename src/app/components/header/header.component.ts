@@ -4,9 +4,10 @@ import { ButtonModule } from "primeng/button";
 import { AvatarModule } from 'primeng/avatar';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
+import { Store } from '@ngrx/store';
+
 import { AppService } from '../../services/app.service';
 import { TasksService } from '../../services/tasks.service';
-import { Store } from '@ngrx/store';
 import { ApplicationState } from '../../store/types';
 import { fetchLists, fetchSelectedLists, fetchTasks } from '../../store/tasks.actions';
 

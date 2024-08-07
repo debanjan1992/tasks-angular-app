@@ -62,7 +62,7 @@
 <app-create-edit-list-modal [visible]="editModalVisible" [editMode]="true" [list]="list"
     (dismiss)="editModalVisible = false"></app-create-edit-list-modal>
 
-<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true" [style]="{ width: '20rem'}">
+<p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" [style]="{ width: '20rem'}">
     <app-create-edit-task [list]="list" [variant]="variant === 'starred' ? 'new-starred-task' : 'new-task'"
         (dismiss)="op.hide();"></app-create-edit-task>
 </p-overlayPanel>

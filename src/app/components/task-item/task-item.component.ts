@@ -5,16 +5,18 @@ import { MenuItem } from 'primeng/api';
 import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
 import { Menu, MenuModule } from 'primeng/menu';
 import { ContextMenuModule } from 'primeng/contextmenu';
+import { TagModule } from 'primeng/tag';
 
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { deleteTask, moveTaskToList, updateTask } from '../../store/tasks.actions';
 import { ApplicationState, List, Task } from '../../store/types';
 import { CreateEditTaskComponent } from '../create-edit-task/create-edit-task.component';
+import { differenceInMinutes, formatRelative } from 'date-fns';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule, ClickOutsideDirective, MenuModule, CreateEditTaskComponent, OverlayPanelModule, ContextMenuModule],
+  imports: [CommonModule, ClickOutsideDirective, MenuModule, CreateEditTaskComponent, OverlayPanelModule, ContextMenuModule, TagModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss'
 })
@@ -69,11 +71,31 @@ export class TaskItemComponent {
 
   showMenu(event: Event, menu: Menu) {
     menu.show(event);
-    // event.preventDefault();
-    // event.stopPropagation();
   }
 
   deleteTask() {
     this.store.dispatch(deleteTask({ id: this.task.id }));
+  }
+
+  getDue() {
+    if (this.task.dueDate) {
+      return formatRelative(this.task.dueDate, new Date());
+    }
+    return '';
+  }
+
+  getSeverity(): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
+    if (this.task.dueDate && !this.task.completed) {
+      const diffInMins = differenceInMinutes(this.task.dueDate, new Date());
+      if (diffInMins <= 0) {
+        return "danger";
+      } else if (diffInMins > 0 && diffInMins <= 360) {
+        return "warning";
+      }
+    }
+    if (this.task.dueDate && this.task.completed) {
+      return "secondary";
+    }
+    return 'info';
   }
 }

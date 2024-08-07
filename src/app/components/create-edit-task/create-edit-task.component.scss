@@ -8,6 +8,34 @@
     .input-group {
         margin-bottom: 8px;
 
+        &.date-time-picker {
+            border-radius: var(--border-radius);
+            transition: 0.4s;
+            padding: 8px 16px;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            .due-date-display {
+                div:nth-child(1) {
+                    font-size: 0.85rem;
+                    margin-bottom: 3px;
+                }
+                div:nth-child(2) {
+                    font-weight: 500;
+                }
+            }
+
+            &:hover {
+                background-color: var(--surface-100);
+            }
+
+            &:active {
+                background-color: var(--highlight-bg);
+            }
+        }
 
         input {
             display: block;
@@ -24,7 +52,7 @@
     }
 
     .actions {
-        margin-top: 8px;
+        margin-top: 24px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
