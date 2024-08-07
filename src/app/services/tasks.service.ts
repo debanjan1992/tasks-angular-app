@@ -149,6 +149,7 @@ export class TasksService {
     deleteList(listId: string) {
         const lists = this.getListsFromLocalStorage();
         const selectedLists = this.getSelectedListsFromLocalStorage();
+        const tasks = this.getTasksFromLocalStorage();
 
         const listIndex = lists.findIndex(list => list.id === listId);
         const selectedListIndex = selectedLists.findIndex(selectedList => selectedList === listId);
@@ -165,6 +166,8 @@ export class TasksService {
         lists.splice(listIndex, 1);
 
         this.writeListsToLocalStorage(lists);
+        const updatedTasks = tasks.filter(task => task.listId !== listId);
+        this.writeTasksToLocalStorage(updatedTasks);
 
         return of({ success: true }).pipe(
             tap(() => this.messageService.add({ severity: 'contrast', summary: 'list deleted!' }))

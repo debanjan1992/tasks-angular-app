@@ -73,7 +73,7 @@ export class TasksEffects {
 
     fetchTasks$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(fetchTasks, createNewTaskSuccess, updateTaskSuccess, deleteTaskSuccess, moveTaskToListSuccess),
+            ofType(fetchTasks, createNewTaskSuccess, updateTaskSuccess, deleteTaskSuccess, moveTaskToListSuccess, deleteListSuccess),
             switchMap(() => this.tasksService.fetchAllTasks()),
             map(response => fetchTasksSuccess(response)),
             catchError(error => of(fetchTasksFailure(error))
