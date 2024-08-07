@@ -52,7 +52,7 @@ export class TasksService {
             tasks.push({
                 id: uuid.v4(),
                 title: faker.music.songName(),
-                description: faker.commerce.productDescription(),
+                description: Math.random() > 0.5 ? faker.commerce.productDescription() : '',
                 completed,
                 starred: completed ? false : Math.random() > 0.7,
                 createdAt: date,

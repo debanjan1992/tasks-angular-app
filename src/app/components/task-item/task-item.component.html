@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="description-row">
-        <small class="task-description" [ngStyle]="{
+        <small class="task-description" *ngIf="task.description" [ngStyle]="{
             '-webkit-line-clamp': active ? 'unset' : 2
         }">{{ task.description }}</small>
     </div>
