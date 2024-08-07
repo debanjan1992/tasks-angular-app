@@ -1,5 +1,7 @@
 # TasksAngularApp
 
+You can try out the demo at [https://debanjan1992.github.io/tasks-angular-app](https://debanjan1992.github.io/tasks-angular-app)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
 
 ## Development server
