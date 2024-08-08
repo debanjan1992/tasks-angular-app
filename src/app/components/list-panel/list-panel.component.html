@@ -14,7 +14,8 @@
     <div class="task-list-wrapper">
         <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noTasks"></ng-container>
 
-        <app-task-item *ngFor="let task of incompleteTasks; trackBy:identify" [task]="task" [list]="list" [@listAnimation]></app-task-item>
+        <app-task-item *ngFor="let task of incompleteTasks; trackBy:identify" [task]="task" [list]="list"
+            [@listAnimation]></app-task-item>
 
         <ng-container *ngIf="tasks.length === completeTasks.length && tasks.length !== 0"
             [ngTemplateOutlet]="allTasksCompleted"></ng-container>
@@ -25,7 +26,7 @@
                     <i class="pi pi-angle-right" *ngIf="!completedTasksExpanded"></i>
                     <i class="pi pi-angle-down" *ngIf="completedTasksExpanded"></i>
                 </span>
-                <span>Completed</span>
+                <span>Completed (<span>{{completeTasks.length}}</span>)</span>
             </div>
             <ng-container *ngIf="completedTasksExpanded" class="completed-tasks-list-wrapper">
                 <app-task-item *ngFor="let task of completeTasks" [task]="task" [list]="list"></app-task-item>
@@ -48,7 +49,8 @@
     <div class="task-list-wrapper">
         <div class="task-list starred">
             <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noStarredTasks"></ng-container>
-            <app-task-item *ngFor="let task of tasks; trackBy identify" [task]="task" [list]="list" [@listAnimation]></app-task-item>
+            <app-task-item *ngFor="let task of tasks; trackBy identify" [task]="task" [list]="list"
+                [@listAnimation]></app-task-item>
         </div>
     </div>
 </p-card>

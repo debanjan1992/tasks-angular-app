@@ -27,6 +27,7 @@ export class TaskItemComponent {
 
   @ViewChild(OverlayPanel, { read: OverlayPanel }) overlayPanelEl!: OverlayPanel;
 
+  taskCheckUncheckHover = false;
   showActions = false;
   menuItems: MenuItem[];
   contextMenuItems: MenuItem[];

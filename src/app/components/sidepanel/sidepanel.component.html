@@ -3,7 +3,7 @@
     </div>
     <div class="content">
         <ul class="menu-list">
-            <li class="row" routerLink="/tasks" routerLinkActive="active">
+            <li class="row" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <i class="pi pi-check-circle"></i>
                 <span>All tasks</span>
             </li>

@@ -3,7 +3,7 @@ import { AllTasksPageComponent } from './pages/all-tasks-page/all-tasks-page.com
 
 export const routes: Routes = [
     {
-        path: "tasks",
+        path: "",
         component: AllTasksPageComponent,
         pathMatch: "full"
     },
@@ -11,8 +11,4 @@ export const routes: Routes = [
         path: "starred",
         loadComponent: () => import("./pages/starred-tasks-page/starred-tasks-page.component").then(c => c.StarredTasksPageComponent)
     },
-    {
-        path: "**",
-        redirectTo: "tasks"
-    }
 ];
