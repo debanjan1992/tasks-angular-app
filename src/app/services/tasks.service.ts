@@ -21,15 +21,13 @@ export class TasksService {
             localStorage.setItem(this.Keys.Lists, JSON.stringify([]));
             localStorage.setItem(this.Keys.SelectedLists, JSON.stringify([]));
             localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
-
-            // this.generateMocks();
         }
     }
 
     generateMocks() {
-        const listsCount = 8;
-        const tasksCount = 100;
-        const selectedListsCount = 4;
+        const listsCount = 3;
+        const tasksCount = 20;
+        const selectedListsCount = 2;
         const lists: List[] = [];
         const tasks: Task[] = [];
         const selectedLists: string[] = [];
@@ -43,7 +41,7 @@ export class TasksService {
             });
         }
 
-        selectedLists.push(...lists.slice(0, selectedListsCount - 1).map(x => x.id));
+        selectedLists.push(...lists.slice(0, selectedListsCount).map(x => x.id));
 
         for (let i = 1; i <= tasksCount; i++) {
             const randomIndex = Math.floor(Math.random() * listsCount);

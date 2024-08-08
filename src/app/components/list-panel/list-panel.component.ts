@@ -41,6 +41,7 @@ export class ListPanelComponent {
   editModalVisible = false;
   tasks: Task[];
   completedTasksExpanded = false;
+  isHoverActive = false;
 
   constructor(private store: Store<ApplicationState>, private elementRef: ElementRef) {
     this.tasks = [];
