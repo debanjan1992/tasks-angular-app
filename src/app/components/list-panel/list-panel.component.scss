@@ -132,3 +132,18 @@
         text-align: center;
     }
 }
+
+.draggable-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    visibility: hidden;
+    cursor: grab;
+    font-weight: 900;
+    color: var(--primary-text-color);
+
+    &.hover {
+        visibility: visible;
+    }
+}

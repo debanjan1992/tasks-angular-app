@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
 import { AccordionModule } from 'primeng/accordion';
 import { CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
@@ -7,7 +7,7 @@ import { AppService } from '../../services/app.service';
 import { ButtonModule } from 'primeng/button';
 import { Store } from '@ngrx/store';
 import { ApplicationState, List } from '../../store/types';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CreateEditListModalComponent } from "../dialogs/create-edit-list-modal/create-edit-list-modal.component";
 import { RouterModule } from '@angular/router';
 import { updateSelectedLists } from '../../store/tasks.actions';

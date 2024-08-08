@@ -1,5 +1,8 @@
-<p-card class="listpanel-card" *ngIf="variant === 'default'" [style]="{ minWidth: '25vw'}">
+<p-card class="listpanel-card" *ngIf="variant === 'default'" [style]="{ minWidth: '25vw'}" (mouseover)="isHoverActive = true" (mouseleave)="isHoverActive = false">
     <ng-template pTemplate="header">
+        <div class="draggable-header" [ngClass]="{ 'hover': isHoverActive }">
+            <i class="pi pi-ellipsis-h"></i>
+        </div>
         <div class="header">
             <span>{{list.label}}</span>
             <i class="pi pi-ellipsis-v" (click)="menu.toggle($event)"></i>
