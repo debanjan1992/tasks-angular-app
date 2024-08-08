@@ -4,9 +4,10 @@
         <div class="title-wrapper">
             <div class="icon-wrapper fixed-width">
                 <i class="pi" [ngClass]="{ 
-                    'pi-circle': !task.completed,
+                    'pi-circle': !task.completed || (task.completed && taskCheckUncheckHover),
+                    'pi-check-circle': !task.completed && taskCheckUncheckHover,
                     'pi-check': task.completed,
-             }" (click)="toggleCompleted()"></i>
+             }" (click)="toggleCompleted()" (mouseover)="taskCheckUncheckHover = true" (mouseleave)="taskCheckUncheckHover = false"></i>
             </div>
             <span class="task-title">{{ task.title }}</span>
         </div>
