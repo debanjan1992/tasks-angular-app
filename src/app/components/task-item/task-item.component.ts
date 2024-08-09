@@ -12,11 +12,13 @@ import { deleteTask, moveTaskToList, updateTask } from '../../store/tasks.action
 import { ApplicationState, List, NewTask, Task, UpdateTaskPayload } from '../../store/types';
 import { CreateEditTaskComponent } from '../create-edit-task/create-edit-task.component';
 import { differenceInMinutes, formatRelative } from 'date-fns';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DueDateModalComponent } from '../due-date-modal/due-date-modal.component';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule, ClickOutsideDirective, MenuModule, CreateEditTaskComponent, OverlayPanelModule, ContextMenuModule, TagModule],
+  imports: [CommonModule, ClickOutsideDirective, MenuModule, CreateEditTaskComponent, OverlayPanelModule, ContextMenuModule, TagModule, DynamicDialogModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss'
 })
@@ -32,7 +34,7 @@ export class TaskItemComponent {
   menuItems: MenuItem[];
   contextMenuItems: MenuItem[];
 
-  constructor(private store: Store<ApplicationState>) {
+  constructor(private store: Store<ApplicationState>, private dialogService: DialogService) {
     this.menuItems = [];
     this.contextMenuItems = [];
   }
@@ -102,5 +104,25 @@ export class TaskItemComponent {
 
   onUpdate(task: UpdateTaskPayload) {
     this.store.dispatch(updateTask({ taskId: this.task?.id, task: task }));
+  }
+
+  openDueDateDialog() {
+    const ref = this.dialogService.open(DueDateModalComponent, {
+      closable: true,
+      modal: true,
+      showHeader: false,
+      styleClass: 'due-date-dialog',
+      contentStyle: {
+        overflow: 'visible',
+      }
+    });
+
+    ref.onClose.subscribe((data: { date?: Date, delete: boolean } | null) => {
+      if (data?.date) {
+        this.store.dispatch(updateTask({ taskId: this.task.id, task: { dueDate: data.date.getTime() } }));
+      } else if (data?.delete) {
+        this.store.dispatch(updateTask({ taskId: this.task.id, task: { dueDate: null } }));
+      }
+    });
   }
 }

@@ -56,7 +56,7 @@ export class CreateTaskComponent {
     this.dialogRef.close({
       title: this.taskForm.value.title,
       description: this.taskForm.value.description,
-      dueDate: this.taskForm.value.dueDate ? this.taskForm.value.dueDate.toUTCString() : null,
+      dueDate: this.taskForm.value.dueDate ? this.taskForm.value.dueDate.getTime() : null,
       listId: this.taskForm.value.list.id,
     });
   }

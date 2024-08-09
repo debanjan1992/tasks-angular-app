@@ -27,7 +27,7 @@
             '-webkit-line-clamp': active ? 'unset' : 2
         }">{{ task.description }}</small>
     </div>
-    <div class="due-date-row" *ngIf="task.dueDate">
+    <div class="due-date-row" *ngIf="task.dueDate" (click)="openDueDateDialog()">
         <div class="tag" [ngClass]="getSeverityClass()">{{getDue()}}</div>
     </div>
 </div>

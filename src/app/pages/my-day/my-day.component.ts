@@ -32,10 +32,10 @@ export class MyDayComponent {
   getTasksForMyDay(tasks: Task[]) {
     const myDayTasks: Task[] = [];
     const date = new Date();
-    const todayEndOfDay = endOfDay(date).toUTCString();
+    const todayEndOfDay = endOfDay(date).getTime();
     tasks.forEach(task => {
       if (task.dueDate) {
-        if (isBefore(task.dueDate, todayEndOfDay) && isAfter(task.dueDate, date.toUTCString())) {
+        if (isBefore(task.dueDate, todayEndOfDay) && isAfter(task.dueDate, date.getTime())) {
           myDayTasks.push(task);
         }
       }

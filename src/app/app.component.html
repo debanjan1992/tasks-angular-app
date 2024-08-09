@@ -1,9 +1,9 @@
 <app-header (profileClicked)="aboutMeVisible = !aboutMeVisible"></app-header>
 <main>
-    <div class="sidebar-wrapper" *ngIf="sidebarVisible">
+    <div class="sidebar-wrapper" *ngIf="sidebarVisible" [@slideInFromLeft]>
         <app-sidepanel></app-sidepanel>
     </div>
-    <div class="content">
+    <div class="content" >
         <router-outlet />
     </div>
 </main>

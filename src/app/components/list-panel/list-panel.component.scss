@@ -4,6 +4,13 @@
         .p-card {
             max-height: calc(100vh - 100px);
             transition: 0.8s;
+            border-radius: 1rem;
+            transition: 0.4s;
+            max-width: 60rem;
+
+            &:hover {
+                box-shadow: 0.2px 1px 6px var(--surface-400);
+            }
         }
 
         .p-card-body {
@@ -13,10 +20,6 @@
         .p-card-content {
             padding: 0;
         }
-    }
-
-    &:hover {
-        box-shadow: 0.2px 1px 6px var(--surface-400);
     }
 }
 
@@ -29,6 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    user-select: none;
 
     i {
         padding: 10px;
@@ -56,6 +60,7 @@
     transition: 0.4s;
     border-radius: var(--border-radius);
     margin-bottom: 12px;
+    user-select: none;
     cursor: pointer;
 
     i {
@@ -98,6 +103,7 @@
 
     .completed-tasks-list-wrapper {
         margin-top: 12px;
+        user-select: none;
     }
 }
 

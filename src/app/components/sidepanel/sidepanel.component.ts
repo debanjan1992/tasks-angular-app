@@ -10,9 +10,10 @@ import { ApplicationState, List } from '../../store/types';
 import { FormsModule } from '@angular/forms';
 import { CreateEditListModalComponent } from "../dialogs/create-edit-list-modal/create-edit-list-modal.component";
 import { RouterModule } from '@angular/router';
-import { createNewTask, updateSelectedLists } from '../../store/tasks.actions';
+import { createNewTask, fetchLists, fetchSelectedLists, fetchTasks, updateSelectedLists } from '../../store/tasks.actions';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CreateTaskComponent } from '../create-task/create-task.component';
+import { TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'app-sidepanel',
@@ -28,7 +29,7 @@ export class SidepanelComponent {
   selectedLists: string[];
   newListModalVisible = false;
 
-  constructor(private store: Store<ApplicationState>, private dialogService: DialogService) {
+  constructor(private store: Store<ApplicationState>, private dialogService: DialogService, private tasksService: TasksService) {
     this.lists = [];
     this.selectedLists = [];
     this.store.select(state => state.tasks).subscribe(tasks => {
@@ -68,5 +69,12 @@ export class SidepanelComponent {
         this.store.dispatch(createNewTask({ listId: data.listId, newTask: data }));
       }
     });
+  }
+
+  generateMocks() {
+    this.tasksService.generateMocks();
+    this.store.dispatch(fetchLists());
+    this.store.dispatch(fetchTasks());
+    this.store.dispatch(fetchSelectedLists());
   }
 }
