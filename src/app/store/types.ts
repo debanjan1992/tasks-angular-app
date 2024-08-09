@@ -13,6 +13,7 @@ export interface TasksState {
 export interface List {
     id: string;
     label: string;
+    default?: boolean;
 }
 
 export interface Task {

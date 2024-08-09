@@ -1,8 +1,8 @@
 <div class="all-tasks-page">
-    <app-list-panel *ngFor="let list of activeLists; trackBy identify" [list]="list" [@addRemoveList]></app-list-panel>
-    <div class="empty-lists" [ngClass]="{ 'visible': activeLists.length === 0 }">
-        <img src="./all-task-lists-hidden.svg" />
-        <div class="text-primary">All lists are hidden</div>
-        <div class="text-secondary">Select any list to se your tasks</div>
+    <app-list-panel *ngFor="let list of activeLists; trackBy identify" addTaskButtonText="Create a task"
+        [tasks]="getTasks(list.id)" [list]="list" [@addRemoveList]></app-list-panel>
+    <div class="empty-lists">
+        <app-empty-content *ngIf="activeLists.length === 0" img="./all-task-lists-hidden.svg"
+            title="All lists are hidden" subtitle="Select any list to see your tasks"></app-empty-content>
     </div>
 </div>

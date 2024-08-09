@@ -7,8 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
 
-import { createNewTask, updateTask } from '../../store/tasks.actions';
-import { ApplicationState, List, NewTask, Task, UpdateTaskPayload } from '../../store/types';
+import { ApplicationState, List, Task } from '../../store/types';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DueDateModalComponent } from '../due-date-modal/due-date-modal.component';
 
@@ -21,8 +20,9 @@ import { DueDateModalComponent } from '../due-date-modal/due-date-modal.componen
 })
 export class CreateEditTaskComponent {
   @Input() list!: List;
-  @Input({ required: true }) variant: 'new-task' | 'edit-task' | 'new-starred-task' = 'new-task';
+  @Input({ required: true }) variant: 'new-task' | 'edit-task' = 'new-task';
   @Input() task?: Task;
+  @Output() submit = new EventEmitter<any>();
   @Output() dismiss = new EventEmitter<void>();
 
   taskForm!: FormGroup;
@@ -63,27 +63,22 @@ export class CreateEditTaskComponent {
     if (this.taskForm.invalid) {
       return;
     }
-    const newTask: NewTask = {
+    this.submit.emit({
       title: this.taskForm.value.title,
       description: this.taskForm.value.description,
-      starred: this.variant === 'new-starred-task',
       dueDate: this.taskForm.value.dueDate ? this.taskForm.value.dueDate.toUTCString() : null,
-    };
-    this.store.dispatch(createNewTask({ listId: this.list.id, newTask }));
-    this.dismiss.emit();
+    });
   }
 
   onUpdate() {
     if (this.taskForm.invalid || !this.task) {
       return;
     }
-    const newTask: UpdateTaskPayload = {
+    this.submit.emit({
       title: this.taskForm.value.title,
       description: this.taskForm.value.description,
       dueDate: this.taskForm.value.dueDate ? this.taskForm.value.dueDate.toUTCString() : null,
-    };
-    this.store.dispatch(updateTask({ taskId: this.task?.id, task: newTask }));
-    this.dismiss.emit();
+    });
   }
 
   showDueDateDialog() {

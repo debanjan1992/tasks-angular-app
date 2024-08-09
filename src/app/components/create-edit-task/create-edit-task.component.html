@@ -1,6 +1,5 @@
 <div class="create-edit-task">
-    <ng-container *ngIf="variant === 'new-task' || variant == 'new-starred-task'"
-        [ngTemplateOutlet]="newTaskEl"></ng-container>
+    <ng-container *ngIf="variant === 'new-task'" [ngTemplateOutlet]="newTaskEl"></ng-container>
     <ng-container *ngIf="variant === 'edit-task'" [ngTemplateOutlet]="editTaskEl"></ng-container>
 </div>
 
@@ -29,9 +28,9 @@
             </div>
         </div>
 
-        <div class="input-group date-time-picker">
+        <div class="input-group date-time-picker" (click)="showDueDateDialog()">
             <i class="pi pi-calendar-clock"></i>
-            <div (click)="showDueDateDialog()">
+            <div>
                 <span *ngIf="!dueDate?.value">Select Due Date</span>
                 <div class="due-date-display" *ngIf="dueDate?.value">
                     <div>Due date</div>

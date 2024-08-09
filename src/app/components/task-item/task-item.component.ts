@@ -9,7 +9,7 @@ import { TagModule } from 'primeng/tag';
 
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { deleteTask, moveTaskToList, updateTask } from '../../store/tasks.actions';
-import { ApplicationState, List, Task } from '../../store/types';
+import { ApplicationState, List, NewTask, Task, UpdateTaskPayload } from '../../store/types';
 import { CreateEditTaskComponent } from '../create-edit-task/create-edit-task.component';
 import { differenceInMinutes, formatRelative } from 'date-fns';
 
@@ -85,7 +85,7 @@ export class TaskItemComponent {
     return '';
   }
 
-  getSeverity(): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
+  getSeverityClass(): "secondary" | "info" | "warning" | "danger" {
     if (this.task.dueDate && !this.task.completed) {
       const diffInMins = differenceInMinutes(this.task.dueDate, new Date());
       if (diffInMins <= 0) {
@@ -98,5 +98,9 @@ export class TaskItemComponent {
       return "secondary";
     }
     return 'info';
+  }
+
+  onUpdate(task: UpdateTaskPayload) {
+    this.store.dispatch(updateTask({ taskId: this.task?.id, task: task }));
   }
 }

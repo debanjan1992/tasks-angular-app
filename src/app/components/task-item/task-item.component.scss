@@ -2,6 +2,7 @@
     transition: 0.4s;
     border-radius: var(--border-radius);
     padding: 8px 0;
+    user-select: none;
     cursor: pointer;
 
     &.completed {
@@ -73,6 +74,10 @@
         align-items: center;
         gap: 12px;
         justify-content: space-between;
+
+        .task-title {
+            font-weight: 500;
+        }
     }
 
     .fixed-width {
@@ -98,5 +103,33 @@
                 font-weight: 900;
             }
         }
+    }
+}
+
+.tag {
+    border-radius: var(--border-radius);
+    border: 2px solid var(--surface-400);
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    display: inline;
+
+    &.danger {
+        border-color: var(--red-300);
+        color: var(--red-500);
+    }
+
+    &.info {
+        border-color: var(--primary-300);
+        color: var(--primary-500);
+    }
+
+    &.secondary {
+        border-color: var(--surface-300);
+        color: var(--text-secondary-color);
+    }
+
+    &.warning {
+        border-color: var(--orange-300);
+        color: var(--orange-500);
     }
 }

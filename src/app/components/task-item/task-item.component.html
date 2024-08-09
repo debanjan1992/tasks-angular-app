@@ -28,14 +28,14 @@
         }">{{ task.description }}</small>
     </div>
     <div class="due-date-row" *ngIf="task.dueDate">
-        <p-tag [severity]="getSeverity()" [value]="getDue()" [rounded]="true" />
+        <div class="tag" [ngClass]="getSeverityClass()">{{getDue()}}</div>
     </div>
 </div>
 
 <p-menu #menu [model]="menuItems" [popup]="true" appendTo="body" />
 
 <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" [style]="{ width: '20rem'}">
-    <app-create-edit-task [list]="list" [task]="task" variant="edit-task" (dismiss)="op.hide()"></app-create-edit-task>
+    <app-create-edit-task [list]="list" [task]="task" variant="edit-task" (submit)="onUpdate($event); op.hide();" (dismiss)="op.hide()"></app-create-edit-task>
 </p-overlayPanel>
 
 <p-contextMenu [target]="taskItem" [model]="contextMenuItems" />

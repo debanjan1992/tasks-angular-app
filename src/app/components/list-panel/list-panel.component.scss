@@ -55,6 +55,7 @@
     padding: 5px 7px;
     transition: 0.4s;
     border-radius: var(--border-radius);
+    margin-bottom: 12px;
     cursor: pointer;
 
     i {
@@ -104,33 +105,6 @@
     overflow-y: auto;
     padding-right: 0.5rem;
     max-height: calc(100vh - 225px);
-}
-
-.empty-tasks,
-.all-tasks-completed {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    user-select: none;
-
-    img {
-        width: 8rem;
-        margin-bottom: 18px;
-    }
-
-    .text-primary {
-        font-size: 1.2rem;
-        margin-bottom: 16px;
-        font-weight: 500;
-    }
-
-    .text-secondary {
-        font-size: 0.925rem;
-        width: 15rem;
-        text-align: center;
-    }
 }
 
 .draggable-header {
