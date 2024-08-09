@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
@@ -9,14 +9,16 @@ import { TagModule } from 'primeng/tag';
 
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { deleteTask, moveTaskToList, updateTask } from '../../store/tasks.actions';
-import { ApplicationState, List, Task } from '../../store/types';
+import { ApplicationState, List, NewTask, Task, UpdateTaskPayload } from '../../store/types';
 import { CreateEditTaskComponent } from '../create-edit-task/create-edit-task.component';
 import { differenceInMinutes, formatRelative } from 'date-fns';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DueDateModalComponent } from '../due-date-modal/due-date-modal.component';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule, ClickOutsideDirective, MenuModule, CreateEditTaskComponent, OverlayPanelModule, ContextMenuModule, TagModule],
+  imports: [CommonModule, ClickOutsideDirective, MenuModule, CreateEditTaskComponent, OverlayPanelModule, ContextMenuModule, TagModule, DynamicDialogModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss'
 })
@@ -25,6 +27,8 @@ export class TaskItemComponent {
   @Input() task!: Task;
   @Input() active = false;
 
+  @Output() deleteClicked = new EventEmitter<void>();
+
   @ViewChild(OverlayPanel, { read: OverlayPanel }) overlayPanelEl!: OverlayPanel;
 
   taskCheckUncheckHover = false;
@@ -32,7 +36,7 @@ export class TaskItemComponent {
   menuItems: MenuItem[];
   contextMenuItems: MenuItem[];
 
-  constructor(private store: Store<ApplicationState>) {
+  constructor(private store: Store<ApplicationState>, private dialogService: DialogService) {
     this.menuItems = [];
     this.contextMenuItems = [];
   }
@@ -76,6 +80,7 @@ export class TaskItemComponent {
 
   deleteTask() {
     this.store.dispatch(deleteTask({ id: this.task.id }));
+    this.deleteClicked.emit();
   }
 
   getDue() {
@@ -85,7 +90,7 @@ export class TaskItemComponent {
     return '';
   }
 
-  getSeverity(): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
+  getSeverityClass(): "secondary" | "info" | "warning" | "danger" {
     if (this.task.dueDate && !this.task.completed) {
       const diffInMins = differenceInMinutes(this.task.dueDate, new Date());
       if (diffInMins <= 0) {
@@ -98,5 +103,29 @@ export class TaskItemComponent {
       return "secondary";
     }
     return 'info';
+  }
+
+  onUpdate(task: UpdateTaskPayload) {
+    this.store.dispatch(updateTask({ taskId: this.task?.id, task: task }));
+  }
+
+  openDueDateDialog() {
+    const ref = this.dialogService.open(DueDateModalComponent, {
+      closable: true,
+      modal: true,
+      showHeader: false,
+      styleClass: 'due-date-dialog',
+      contentStyle: {
+        overflow: 'visible',
+      }
+    });
+
+    ref.onClose.subscribe((data: { date?: Date, delete: boolean } | null) => {
+      if (data?.date) {
+        this.store.dispatch(updateTask({ taskId: this.task.id, task: { dueDate: data.date.getTime() } }));
+      } else if (data?.delete) {
+        this.store.dispatch(updateTask({ taskId: this.task.id, task: { dueDate: null } }));
+      }
+    });
   }
 }

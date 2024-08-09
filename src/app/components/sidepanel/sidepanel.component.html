@@ -1,5 +1,7 @@
 <div class="sidepanel">
     <div class="header">
+        <p-button label="Create" severity="secondary" [rounded]="true"
+            icon="pi pi-sparkles" [raised]="true" (onClick)="showCreateDialog()"></p-button>
     </div>
     <div class="content">
         <ul class="menu-list">
@@ -7,13 +9,17 @@
                 <i class="pi pi-check-circle"></i>
                 <span>All tasks</span>
             </li>
+            <li class="row" [routerLink]="['/my-day']" routerLinkActive="active">
+                <i class="pi pi-sun"></i>
+                <span>My Day</span>
+            </li>
             <li class="row" routerLink="/starred" routerLinkActive="active">
                 <i class="pi pi-star"></i>
                 <span>Starred</span>
             </li>
         </ul>
         <div class="lists">
-            <div class="header">
+            <div class="lists-header">
                 <div class="title">Lists</div>
                 <i [ngClass]="listsExpanded ? 'pi pi-angle-up' : 'pi pi-angle-down'"
                     (click)="listsExpanded = !listsExpanded"></i>
@@ -31,6 +37,12 @@
                 <span>Create new list</span>
             </li>
         </ul>
+        <div class="generate-mocks">
+            <p-button label="Generate mocks" severity="contrast" [raised]="true" [text]="true" [rounded]="true" (click)="generateMocks()"></p-button>
+        </div>
+        <div class="clean-data">
+            <p-button label="Delete mocks" severity="danger" [raised]="true" [text]="true" [rounded]="true" (click)="deleteMocks()"></p-button>
+        </div>
     </div>
 </div>
 

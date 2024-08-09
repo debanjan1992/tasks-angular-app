@@ -24,19 +24,12 @@ export class HeaderComponent {
   date!: Date;
   newTaskVisible = false;
 
-  constructor(private appService: AppService, private tasksService: TasksService, private store: Store<ApplicationState>) {
+  constructor(private appService: AppService) {
     this.today = new Date();
     this.date = this.today;
   }
 
   onSidebarToggle() {
     this.appService.toggleSidebar();
-  }
-
-  generateMocks() {
-    this.tasksService.generateMocks();
-    this.store.dispatch(fetchLists());
-    this.store.dispatch(fetchTasks());
-    this.store.dispatch(fetchSelectedLists());
   }
 }

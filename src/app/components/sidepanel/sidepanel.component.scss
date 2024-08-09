@@ -1,5 +1,19 @@
 .sidepanel {
-    padding: 60px 16px;
+    padding: 30px 16px;
+    user-select: none;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 7px 16px;
+
+    &::ng-deep {
+        .p-button {
+            width: 10rem;
+        }
+    }
 }
 
 .content {
@@ -16,7 +30,8 @@
     .menu-list,
     .action-list,
     .lists-content {
-
+        padding: 0;
+        margin: 0;
         .row {
             display: flex;
             align-items: center;
@@ -40,11 +55,11 @@
     }
 
     .lists {
-        .header {
+        .lists-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 7px 0 7px 20px;    
+            padding: 7px 0 7px 20px;
 
             i {
                 padding: 10px;
@@ -52,7 +67,7 @@
                 font-weight: 600;
                 font-size: 1rem;
                 cursor: pointer;
-        
+
                 &:hover {
                     background-color: var(--surface-50);
                 }
@@ -84,4 +99,9 @@
             }
         }
     }
+}
+
+.generate-mocks {
+    margin-top: 32px;
+    margin-bottom: 12px;
 }

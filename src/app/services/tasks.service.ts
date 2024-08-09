@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { List, NewTask, Task, UpdateTaskPayload } from "../store/types";
-import { Observable, of, tap, throwError } from "rxjs";
+import { delay, delayWhen, Observable, of, tap, throwError } from "rxjs";
 import * as uuid from "uuid";
-import { da, faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { MessageService } from "primeng/api";
 import { randomDate } from "./utils";
 import { addDays } from "date-fns";
@@ -18,21 +18,34 @@ export class TasksService {
 
     constructor(private messageService: MessageService) {
         if (!localStorage.getItem(this.Keys.Lists) && !localStorage.getItem(this.Keys.Tasks) && !localStorage.getItem(this.Keys.SelectedLists)) {
-            localStorage.setItem(this.Keys.Lists, JSON.stringify([]));
+            localStorage.setItem(this.Keys.Lists, JSON.stringify(this.getDefaultLists()));
             localStorage.setItem(this.Keys.SelectedLists, JSON.stringify([]));
             localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
         }
     }
 
+    deleteStorage() {
+        localStorage.clear();
+        localStorage.setItem(this.Keys.Lists, JSON.stringify(this.getDefaultLists()));
+        localStorage.setItem(this.Keys.SelectedLists, JSON.stringify([]));
+        localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
+    }
+
+    getDefaultLists(): List[] {
+        return [
+            { id: uuid.v4(), label: "My List", default: true }
+        ];
+    }
+
     generateMocks() {
-        const listsCount = 3;
-        const tasksCount = 20;
-        const selectedListsCount = 2;
-        const lists: List[] = [];
+        const listsCount = 4;
+        const tasksCount = 40;
+        const selectedListsCount = 3;
+        const lists: List[] = [...this.getDefaultLists()];
         const tasks: Task[] = [];
         const selectedLists: string[] = [];
 
-        const date = new Date().toUTCString();
+        const date = new Date().getTime();
 
         for (let i = 1; i <= listsCount; i++) {
             lists.push({
@@ -46,7 +59,7 @@ export class TasksService {
         for (let i = 1; i <= tasksCount; i++) {
             const randomIndex = Math.floor(Math.random() * listsCount);
             const completed = Math.random() > 0.5;
-            const dueDate = Math.random() > 0.6 ? randomDate(addDays(date, -5), addDays(date, 5)).toUTCString() : null;
+            const dueDate = Math.random() > 0.6 ? randomDate(addDays(date, -5), addDays(date, 5)).getTime() : null;
             tasks.push({
                 id: uuid.v4(),
                 title: faker.music.songName(),
@@ -182,7 +195,7 @@ export class TasksService {
     }
 
     createNewTask(listId: string, newTask: NewTask) {
-        const date = new Date().toUTCString();
+        const date = new Date().getTime();
         const tasks = this.getTasksFromLocalStorage();
         const newTaskObject: Task = {
             ...newTask,
@@ -202,7 +215,7 @@ export class TasksService {
     }
 
     updateTask(taskId: string, task: UpdateTaskPayload) {
-        const date = new Date().toUTCString();
+        const date = new Date().getTime();
         const allTasks = this.getTasksFromLocalStorage();
 
         const taskIndex = allTasks.findIndex(task => task.id === taskId);

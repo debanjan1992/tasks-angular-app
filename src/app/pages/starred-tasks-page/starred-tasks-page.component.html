@@ -1,5 +1,11 @@
 <div class="starred-tasks-page">
     <div class="wrapper">
-        <app-list-panel [list]="starredList" variant="starred"></app-list-panel>
+        <app-list-panel [list]="starredList" addTaskButtonText="Add a starred task"
+            [tasks]="starredTasks" [noTasksTpl]="noStarredTasks" [@addRemoveList]></app-list-panel>
     </div>
 </div>
+
+<ng-template #noStarredTasks>
+    <app-empty-content img="./nothing-starred.svg" title="No starred tasks"
+        subtitle="Mark important tasks with a star so you can easily find them here"></app-empty-content>
+</ng-template>

@@ -1,6 +1,7 @@
 <app-header (profileClicked)="aboutMeVisible = !aboutMeVisible"></app-header>
-<main>
-    <div class="sidebar-wrapper" *ngIf="sidebarVisible">
+<app-page-loader *ngIf="loading" [@loading]></app-page-loader>
+<main [ngClass]="{'animate-in': !loading}">
+    <div class="sidebar-wrapper" *ngIf="sidebarVisible" [@slideInFromLeft]>
         <app-sidepanel></app-sidepanel>
     </div>
     <div class="content">
