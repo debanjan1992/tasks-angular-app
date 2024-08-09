@@ -1,0 +1,58 @@
+<div class="create-task">
+    <div class="wrapper">
+        <form [formGroup]="taskForm" (submit)="onSave()">
+            <div class="input-group">
+                <input pInputText id="title" placeholder="Title" formControlName="title" />
+                <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['required']">
+                    This field is required
+                </div>
+                <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['maxlength']">
+                    This length of this input should not exceed 40 characters
+                </div>
+                <div class="validation-error" *ngIf="(title?.touched || title?.dirty) && title?.errors?.['minlength']">
+                    This minimum length of this input is 5 characters
+                </div>
+            </div>
+
+            <div class="input-group">
+                <textarea pInputTextarea id="description" rows="4" placeholder="Description"
+                    formControlName="description"></textarea>
+                <div class="validation-error"
+                    *ngIf="(description?.touched || description?.dirty) && description?.errors?.['maxlength']">
+                    This length of this input should not exceed 500 characters
+                </div>
+                <div class="validation-error"
+                    *ngIf="(description?.touched || description?.dirty) && description?.errors?.['minlength']">
+                    This minimum length of this input is 10 characters
+                </div>
+            </div>
+
+            <div class="input-group date-time-picker" (click)="showDueDateDialog()">
+                <i class="pi pi-calendar-clock"></i>
+                <div>
+                    <span *ngIf="!dueDate?.value">Select Due Date</span>
+                    <div class="due-date-display" *ngIf="dueDate?.value">
+                        <div>Due date</div>
+                        <div>{{ dueDate?.value| date: 'MMM d, y, h:mm a' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group list-picker">
+                <i class="pi pi-list"></i>
+                <div class="dropdown-wrapper">
+                    <p-dropdown formControlName="list" [options]="lists" optionLabel="label" placeholder="Select list"
+                        [filter]="lists.length > 8" filterBy="label" [showClear]="true" />
+                    <div class="validation-error" *ngIf="(list?.touched || list?.dirty) && list?.errors?.['required']">
+                        This field is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <p-button label="Save" size="small" [rounded]="true" type="submit"
+                    [disabled]="taskForm.invalid"></p-button>
+            </div>
+        </form>
+    </div>
+</div>

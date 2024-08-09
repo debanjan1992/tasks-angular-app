@@ -11,4 +11,8 @@ export const routes: Routes = [
         path: "starred",
         loadComponent: () => import("./pages/starred-tasks-page/starred-tasks-page.component").then(c => c.StarredTasksPageComponent)
     },
+    {
+        path: "my-day",
+        loadComponent: () => import("./pages/my-day/my-day.component").then(c => c.MyDayComponent),
+    }
 ];

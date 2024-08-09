@@ -1,27 +1,24 @@
-<p-card class="listpanel-card" *ngIf="variant === 'default'" [style]="{ minWidth: '25vw'}" (mouseover)="isHoverActive = true" (mouseleave)="isHoverActive = false">
+<p-card class="listpanel-card" [style]="{ minWidth: '25vw'}">
     <ng-template pTemplate="header">
-        <div class="draggable-header" [ngClass]="{ 'hover': isHoverActive }">
-            <i class="pi pi-ellipsis-h"></i>
-        </div>
         <div class="header">
             <span>{{list.label}}</span>
-            <i class="pi pi-ellipsis-v" (click)="menu.toggle($event)"></i>
+            <i class="pi pi-ellipsis-v" *ngIf="!list.default" (click)="menu.toggle($event)"></i>
         </div>
     </ng-template>
 
-    <div class="add-task" (click)="op.toggle($event)">
+    <div class="add-task" *ngIf="!hideAddTaskBtn" (click)="op.toggle($event)">
         <i class="pi pi-plus-circle"></i>
-        <span>Add a task</span>
+        <span>{{addTaskButtonText}}</span>
     </div>
 
     <div class="task-list-wrapper">
-        <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noTasks"></ng-container>
+        <ng-container *ngIf="!noTasksTpl && tasks.length === 0" [ngTemplateOutlet]="noTasks"></ng-container>
+        <ng-container *ngIf="noTasksTpl && tasks.length === 0" [ngTemplateOutlet]="noTasksTpl"></ng-container>
+        <ng-container *ngIf="tasks.length === completeTasks.length && tasks.length !== 0"
+            [ngTemplateOutlet]="allTasksCompleted"></ng-container>
 
         <app-task-item *ngFor="let task of incompleteTasks; trackBy:identify" [task]="task" [list]="list"
             [@listAnimation]></app-task-item>
-
-        <ng-container *ngIf="tasks.length === completeTasks.length && tasks.length !== 0"
-            [ngTemplateOutlet]="allTasksCompleted"></ng-container>
 
         <div class="task-list complete" *ngIf="completeTasks.length !== 0">
             <div class="title" (click)="completedTasksExpanded = !completedTasksExpanded;">
@@ -38,26 +35,6 @@
     </div>
 </p-card>
 
-<p-card class="listpanel-card" *ngIf="variant === 'starred'" [style]="{ width: '50vw'}">
-    <ng-template pTemplate="header">
-        <div class="header">
-            <span>{{list.label}}</span>
-            <i class="pi pi-ellipsis-v" (click)="menu.toggle($event)"></i>
-        </div>
-    </ng-template>
-    <div class="add-task" (click)="op.toggle($event)">
-        <i class="pi pi-plus-circle"></i>
-        <span>Add a starred task</span>
-    </div>
-    <div class="task-list-wrapper">
-        <div class="task-list starred">
-            <ng-container *ngIf="tasks.length === 0" [ngTemplateOutlet]="noStarredTasks"></ng-container>
-            <app-task-item *ngFor="let task of tasks; trackBy identify" [task]="task" [list]="list"
-                [@listAnimation]></app-task-item>
-        </div>
-    </div>
-</p-card>
-
 
 
 
@@ -68,30 +45,16 @@
     (dismiss)="editModalVisible = false"></app-create-edit-list-modal>
 
 <p-overlayPanel #op [dismissable]="false" [showCloseIcon]="true" [style]="{ width: '20rem'}">
-    <app-create-edit-task [list]="list" [variant]="variant === 'starred' ? 'new-starred-task' : 'new-task'"
-        (dismiss)="op.hide();"></app-create-edit-task>
+    <app-create-edit-task [list]="list" variant="new-task" (dismiss)="op.hide();"
+        (submit)="onSave($event); op.hide();"></app-create-edit-task>
 </p-overlayPanel>
 
 <ng-template #noTasks>
-    <div class="empty-tasks">
-        <img src="./empty-tasks.svg" />
-        <div class="text-primary">No tasks yet</div>
-        <div class="text-secondary">Add your tasks here and we help you keep track of them!</div>
-    </div>
-</ng-template>
-
-<ng-template #noStarredTasks>
-    <div class="empty-tasks">
-        <img src="./nothing-starred.svg" />
-        <div class="text-primary">No starred tasks</div>
-        <div class="text-secondary">Mark important tasks with a star so you can easily find them here</div>
-    </div>
+    <app-empty-content img="./empty-tasks.svg" title="No tasks yet"
+        subtitle="Add your tasks here and we help you keep track of them!"></app-empty-content>
 </ng-template>
 
 <ng-template #allTasksCompleted>
-    <div class="all-tasks-completed">
-        <img src="./all-tasks-completed.svg" />
-        <div class="text-primary">All tasks complete</div>
-        <div class="text-secondary">Nice work!</div>
-    </div>
+    <app-empty-content img="./all-tasks-completed.svg" title="All tasks complete"
+        subtitle="Nice work!"></app-empty-content>
 </ng-template>

@@ -22,17 +22,18 @@ import { AboutMeComponent } from './components/about-me/about-me.component';
   providers: [],
   animations: [
     trigger(
-      'slideAnimation',
+      'slideInFromLeft',
       [
-        state("visible", style({
-          position: 'relative',
-          transform: 'translateX(0)',
-        })),
-        state("hidden", style({
-          position: 'relative',
-          transform: 'translateX(-400px)',
-        })),
-        transition("visible <=> hidden", animate('1000ms linear')),
+        transition(':enter', [
+          style({ opacity: 0, position: 'relative', left: '-400px' }),
+          animate('0.4s 0.2s ease-in',
+            style({ opacity: 1, position: 'relative', left: '0' }))
+        ]),
+        transition(':leave', [
+          style({ opacity: 1, position: 'relative', left: '0', }),
+          animate('0.4s',
+            style({ opacity: 0, position: 'relative', left: '-400px' })),
+        ])
       ]
     )
   ]

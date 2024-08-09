@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input } from '@angular/core';
-import { ApplicationState, List, Task } from '../../store/types';
+import { Component, ElementRef, Input, TemplateRef } from '@angular/core';
+import { ApplicationState, List, NewTask, Task } from '../../store/types';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
@@ -7,13 +7,14 @@ import { MenuItem } from 'primeng/api';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ButtonModule } from 'primeng/button';
 import { Store } from '@ngrx/store';
-import { deleteList } from '../../store/tasks.actions';
+import { createNewTask, deleteList } from '../../store/tasks.actions';
 import { CreateEditListModalComponent } from '../dialogs/create-edit-list-modal/create-edit-list-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskItemComponent } from "../task-item/task-item.component";
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { CreateEditTaskComponent } from "../create-edit-task/create-edit-task.component";
 import { animations } from './animations';
+import { EmptyContentComponent } from "../empty-content/empty-content.component";
 
 @Component({
   selector: 'app-list-panel',
@@ -28,24 +29,26 @@ import { animations } from './animations';
     TaskItemComponent,
     ClickOutsideDirective,
     CreateEditTaskComponent,
-  ],
+    EmptyContentComponent],
   templateUrl: './list-panel.component.html',
   styleUrl: './list-panel.component.scss',
-  animations: animations
+  animations: animations,
 })
 export class ListPanelComponent {
-  @Input() list!: List;
-  @Input() variant: 'default' | 'starred' = 'default';
+  @Input({ required: true }) list!: List;
+  @Input({ required: true }) tasks: Task[];
+  @Input({ required: true }) addTaskButtonText: string;
+  @Input() hideAddTaskBtn = false;
+  @Input() noTasksTpl!: TemplateRef<EmptyContentComponent>;
 
   menuItems: MenuItem[];
   editModalVisible = false;
-  tasks: Task[];
   completedTasksExpanded = false;
-  isHoverActive = false;
 
   constructor(private store: Store<ApplicationState>, private elementRef: ElementRef) {
     this.tasks = [];
     this.menuItems = [];
+    this.addTaskButtonText = '';
   }
 
   get incompleteTasks() {
@@ -57,20 +60,13 @@ export class ListPanelComponent {
   }
 
   ngOnInit() {
-    this.store.select(state => state.tasks).subscribe(tasksState => {
-      if (this.variant === 'default') {
-        this.tasks = tasksState.tasks.filter(task => task.listId === this.list.id);
-      } else if (this.variant === 'starred') {
-        this.tasks = tasksState.tasks.filter(task => task.starred);
-      }
-    });
 
-    if (this.variant === 'default') {
+    if (!this.list.default) {
       this.menuItems = [
         {
           label: "Rename list",
           command: () => this.editModalVisible = true,
-        }, 
+        },
         {
           label: "Delete list",
           command: () => this.onDelete()
@@ -85,6 +81,13 @@ export class ListPanelComponent {
 
   identify(_: number, task: Task) {
     return task.id;
+  }
+
+  onSave(newTask: NewTask) {
+    if (!newTask.title) {
+      return;
+    }
+    this.store.dispatch(createNewTask({ listId: this.list.id, newTask }));
   }
 
 }

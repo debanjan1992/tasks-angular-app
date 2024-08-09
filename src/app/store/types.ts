@@ -13,6 +13,7 @@ export interface TasksState {
 export interface List {
     id: string;
     label: string;
+    default?: boolean;
 }
 
 export interface Task {
@@ -22,16 +23,16 @@ export interface Task {
     completed: boolean;
     starred: boolean;
     listId: string;
-    dueDate: string | null;
-    createdAt: string;
-    modifiedAt: string;
+    dueDate: number | null;
+    createdAt: number;
+    modifiedAt: number;
 }
 
 export interface NewTask {
     title: string;
     description: string;
     starred: boolean;
-    dueDate: string | null;
+    dueDate: number | null;
 }
 
 export interface UpdateTaskPayload {
@@ -40,5 +41,5 @@ export interface UpdateTaskPayload {
     completed?: boolean;
     starred?: boolean;
     listId?: string;
-    dueDate?: string | null;
+    dueDate?: number | null;
 }

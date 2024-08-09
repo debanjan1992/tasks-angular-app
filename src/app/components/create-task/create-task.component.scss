@@ -1,0 +1,82 @@
+.create-task {
+    .header {
+        font-size: 1.15rem;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+
+    .input-group {
+        margin-bottom: 8px;
+
+        &.list-picker {
+            padding: 8px 16px;
+            margin-top: 16px;
+            gap: 10px;
+            display: flex;
+            align-items: center;
+
+            ::ng-deep {
+                .p-dropdown {
+                    width: 23.85vw;
+                }
+            }
+
+            .dropdown-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 6px;
+            }
+        }
+
+        &.date-time-picker {
+            border-radius: var(--border-radius);
+            transition: 0.4s;
+            padding: 8px 16px;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            .due-date-display {
+                div:nth-child(1) {
+                    font-size: 0.85rem;
+                    margin-bottom: 3px;
+                }
+
+                div:nth-child(2) {
+                    font-weight: 500;
+                }
+            }
+
+            &:hover {
+                background-color: var(--surface-100);
+            }
+
+            &:active {
+                background-color: var(--highlight-bg);
+            }
+        }
+
+        input {
+            display: block;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+
+        textarea {
+            margin-top: 8px;
+            width: 100%;
+            resize: none;
+            margin-bottom: 5px;
+        }
+    }
+
+    .actions {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}

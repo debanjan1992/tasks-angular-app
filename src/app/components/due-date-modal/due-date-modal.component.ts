@@ -18,7 +18,7 @@ export class DueDateModalComponent {
   date = '';
 
   ngOnInit() {
-    this.date = this.config.data.dueDate ?? '';
+    this.date = this.config.data?.dueDate ?? '';
   }
 
   onDismiss() {
