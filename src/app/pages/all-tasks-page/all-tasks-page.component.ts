@@ -33,7 +33,7 @@ export class AllTasksPageComponent {
   }
 
   identify(idx: number, _: List) {
-    return idx;
+    return _.id;
   }
 
   getTasks(listId: string) {

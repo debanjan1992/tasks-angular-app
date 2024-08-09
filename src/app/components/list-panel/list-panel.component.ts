@@ -80,7 +80,7 @@ export class ListPanelComponent {
   }
 
   identify(idx: number, _: Task) {
-    return idx;
+    return _.id;
   }
 
   onSave(newTask: NewTask) {
