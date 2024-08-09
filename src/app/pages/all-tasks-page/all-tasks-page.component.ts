@@ -32,8 +32,8 @@ export class AllTasksPageComponent {
     });
   }
 
-  identify(_: number, list: List) {
-    return list.id;
+  identify(idx: number, _: List) {
+    return idx;
   }
 
   getTasks(listId: string) {

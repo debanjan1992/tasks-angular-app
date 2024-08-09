@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { TasksState } from "./types";
-import { fetchLists, fetchListsFailure, fetchListsSuccess, fetchSelectedLists, fetchSelectedListsSuccess, fetchTasks, fetchTasksFailure, fetchTasksSuccess, updateSelectedListsSuccess, updateTask } from "./tasks.actions";
+import { createNewTask, deleteTask, fetchLists, fetchListsFailure, fetchListsSuccess, fetchSelectedLists, fetchSelectedListsSuccess, fetchTasks, fetchTasksFailure, fetchTasksSuccess, updateSelectedListsSuccess, updateTask } from "./tasks.actions";
 
 const initialState: TasksState = {
     lists: [],

@@ -77,4 +77,11 @@ export class SidepanelComponent {
     this.store.dispatch(fetchTasks());
     this.store.dispatch(fetchSelectedLists());
   }
+
+  deleteMocks() {
+    this.tasksService.deleteStorage();
+    this.store.dispatch(fetchLists());
+    this.store.dispatch(fetchTasks());
+    this.store.dispatch(fetchSelectedLists());
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, TemplateRef } from '@angular/core';
 import { ApplicationState, List, NewTask, Task } from '../../store/types';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
@@ -45,7 +45,7 @@ export class ListPanelComponent {
   editModalVisible = false;
   completedTasksExpanded = false;
 
-  constructor(private store: Store<ApplicationState>, private elementRef: ElementRef) {
+  constructor(private store: Store<ApplicationState>, private cdr: ChangeDetectorRef) {
     this.tasks = [];
     this.menuItems = [];
     this.addTaskButtonText = '';
@@ -69,18 +69,18 @@ export class ListPanelComponent {
         },
         {
           label: "Delete list",
-          command: () => this.onDelete()
+          command: () => this.onDeleteList()
         }
       ];
     }
   }
 
-  onDelete() {
+  onDeleteList() {
     this.store.dispatch(deleteList({ id: this.list.id }));
   }
 
-  identify(_: number, task: Task) {
-    return task.id;
+  identify(idx: number, _: Task) {
+    return idx;
   }
 
   onSave(newTask: NewTask) {

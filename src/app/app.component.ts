@@ -12,11 +12,12 @@ import { ApplicationState } from './store/types';
 import { fetchLists, fetchSelectedLists, fetchTasks } from './store/tasks.actions';
 import { AppService } from './services/app.service';
 import { AboutMeComponent } from './components/about-me/about-me.component';
+import { PageLoaderComponent } from './components/page-loader/page-loader.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent, SidepanelComponent, ToastModule, SidebarModule, AboutMeComponent],
+  imports: [RouterOutlet, CommonModule, HeaderComponent, SidepanelComponent, ToastModule, SidebarModule, AboutMeComponent, PageLoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [],
@@ -35,12 +36,23 @@ import { AboutMeComponent } from './components/about-me/about-me.component';
             style({ opacity: 0, position: 'relative', left: '-400px' })),
         ])
       ]
+    ),
+    trigger(
+      'loading',
+      [
+        transition(':leave', [
+          style({ opacity: 1, transform: 'translateY(0)' }),
+          animate('1s',
+            style({ opacity: 0, transform: 'translateY(-100vh)' })),
+        ])
+      ]
     )
   ]
 })
 export class AppComponent {
   sidebarVisible: boolean;
   aboutMeVisible: boolean;
+  loading = true;
 
   constructor(private store: Store<ApplicationState>, private appService: AppService) {
     this.sidebarVisible = false;
@@ -48,6 +60,9 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
     this.sidebarVisible = this.appService.isSidebarExpanded();
     this.store.dispatch(fetchLists());
     this.store.dispatch(fetchTasks());

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { MenuItem } from 'primeng/api';
@@ -26,6 +26,8 @@ export class TaskItemComponent {
   @Input() list!: List;
   @Input() task!: Task;
   @Input() active = false;
+
+  @Output() deleteClicked = new EventEmitter<void>();
 
   @ViewChild(OverlayPanel, { read: OverlayPanel }) overlayPanelEl!: OverlayPanel;
 
@@ -78,6 +80,7 @@ export class TaskItemComponent {
 
   deleteTask() {
     this.store.dispatch(deleteTask({ id: this.task.id }));
+    this.deleteClicked.emit();
   }
 
   getDue() {

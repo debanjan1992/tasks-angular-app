@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { ListPanelComponent } from '../../components/list-panel/list-panel.component';
 import { Store } from '@ngrx/store';
 import { differenceInHours, endOfDay, isAfter, isBefore } from 'date-fns';
+import { animations } from '../all-tasks-page/animations';
 
 @Component({
   selector: 'app-my-day',
   standalone: true,
   imports: [ListPanelComponent, FormsModule, CommonModule],
   templateUrl: './my-day.component.html',
-  styleUrl: './my-day.component.scss'
+  styleUrl: './my-day.component.scss',
+  animations: animations,
 })
 export class MyDayComponent {
   dayList!: List;

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { List, NewTask, Task, UpdateTaskPayload } from "../store/types";
-import { Observable, of, tap, throwError } from "rxjs";
+import { delay, delayWhen, Observable, of, tap, throwError } from "rxjs";
 import * as uuid from "uuid";
-import { da, faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { MessageService } from "primeng/api";
 import { randomDate } from "./utils";
 import { addDays } from "date-fns";
@@ -18,10 +18,17 @@ export class TasksService {
 
     constructor(private messageService: MessageService) {
         if (!localStorage.getItem(this.Keys.Lists) && !localStorage.getItem(this.Keys.Tasks) && !localStorage.getItem(this.Keys.SelectedLists)) {
-            localStorage.setItem(this.Keys.Lists, JSON.stringify(this.getDefaultLists));
+            localStorage.setItem(this.Keys.Lists, JSON.stringify(this.getDefaultLists()));
             localStorage.setItem(this.Keys.SelectedLists, JSON.stringify([]));
             localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
         }
+    }
+
+    deleteStorage() {
+        localStorage.clear();
+        localStorage.setItem(this.Keys.Lists, JSON.stringify(this.getDefaultLists()));
+        localStorage.setItem(this.Keys.SelectedLists, JSON.stringify([]));
+        localStorage.setItem(this.Keys.Tasks, JSON.stringify([]));
     }
 
     getDefaultLists(): List[] {
@@ -31,9 +38,9 @@ export class TasksService {
     }
 
     generateMocks() {
-        const listsCount = 3;
-        const tasksCount = 20;
-        const selectedListsCount = 1;
+        const listsCount = 4;
+        const tasksCount = 40;
+        const selectedListsCount = 3;
         const lists: List[] = [...this.getDefaultLists()];
         const tasks: Task[] = [];
         const selectedLists: string[] = [];

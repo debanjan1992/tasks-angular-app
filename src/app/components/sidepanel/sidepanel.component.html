@@ -38,7 +38,10 @@
             </li>
         </ul>
         <div class="generate-mocks">
-            <p-button label="Generate mocks" [text]="true" [rounded]="true" (click)="generateMocks()"></p-button>
+            <p-button label="Generate mocks" severity="contrast" [raised]="true" [text]="true" [rounded]="true" (click)="generateMocks()"></p-button>
+        </div>
+        <div class="clean-data">
+            <p-button label="Delete mocks" severity="danger" [raised]="true" [text]="true" [rounded]="true" (click)="deleteMocks()"></p-button>
         </div>
     </div>
 </div>
